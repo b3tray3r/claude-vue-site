@@ -1,5 +1,5 @@
 <template>
-  <!-- <div class="flex flex-col min-h-screen text-white">
+  <div class="flex flex-col min-h-screen text-white">
     <main class="flex-grow py-16 px-4 sm:px-6 lg:px-8">
       <div class="max-w-4xl mx-auto space-y-10">
         <div class="text-center">
@@ -9,14 +9,13 @@
         <PlayerStats />
       </div>
     </main>
-  </div> -->
+  </div>
 
   <RconLogin />
 </template>
 
 <script setup>
 import PlayerStats from '../components/PlayerStats.vue';
-import RconLogin from '../components/RconLogin.vue';
 </script>
 
 <style scoped>

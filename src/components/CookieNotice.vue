@@ -1,7 +1,7 @@
 <template>
-  <transition name="fade-slide">
+  <transition name="fade-slide" mode="out-in">
     <div
-      v-if="shouldShow"
+      v-show="shouldShow"
       class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-gradient-to-br from-gray-900 to-black/90 text-white p-5 rounded-xl shadow-2xl z-[9999] w-full max-w-md border border-white/10 backdrop-blur-md"
     >
       <p class="text-sm text-gray-300 mb-3">
@@ -22,7 +22,6 @@
 <script setup>
 import { ref } from 'vue'
 
-// Чтение куки до монтирования компонента
 function isCookieAccepted() {
   return document.cookie.includes('cookiesAccepted=true')
 }
@@ -37,11 +36,9 @@ function acceptCookies() {
 </script>
 
 <style scoped>
-.fade-slide-enter-active {
-  transition: all 0.4s ease;
-}
+.fade-slide-enter-active,
 .fade-slide-leave-active {
-  transition: all 0.2s ease;
+  transition: all 0.4s ease;
 }
 .fade-slide-enter-from {
   opacity: 0;
@@ -57,6 +54,6 @@ function acceptCookies() {
 }
 .fade-slide-leave-to {
   opacity: 0;
-  transform: translateY(30px);
+  transform: translateY(30px); /* вниз */
 }
 </style>

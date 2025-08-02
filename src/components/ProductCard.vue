@@ -106,13 +106,23 @@ export default {
     async handleBuy() {
       if (!this.steam.isAuthenticated.value) {
         await Swal.fire({
-          icon: 'warning',
+          imageUrl: "https://konurarust.com/assets/logo-3nGJ9XyH.png",
+          imageWidth: 200,
+          imageHeight: 200,
+          imageAlt: "Custom image",
           title: 'Авторизация',
           text: 'Пожалуйста, авторизуйтесь через Steam перед покупкой.',
           confirmButtonText: 'Понятно',
           background: '#1f1f1f',
           color: '#fff',
-          confirmButtonColor: '#f97316' // оранжевый
+          confirmButtonColor: '#f97316', // оранжевый
+          scrollbarPadding: false,
+          customClass: {
+            popup: 'custom-swal-popup',
+            backdrop: 'custom-swal-backdrop'
+          }
+
+
         })
         return
       }

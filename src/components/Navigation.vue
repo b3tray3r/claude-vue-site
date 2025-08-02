@@ -6,10 +6,11 @@
     <div class="max-w-6xl mx-auto px-6 py-4">
       <div @click="handleNavClick(link, $event)" class="flex items-center justify-between">
         <!-- Logo -->
-        <router-link to="/" class="flex items-center hover:opacity-80 transition-all">
-          <img src="/src/assets/logo.png" alt="KONURA RUST Logo" class="w-12 h-12 mr-4" />
-          <span class="text-2xl font-black text-primary text-shadow">KONURA</span>
-        </router-link>
+        <router-link to="/" @click.prevent="handleLogoClick" class="flex items-center hover:opacity-80 transition-all">
+  <img src="/src/assets/logo.png" alt="KONURA RUST Logo" class="w-12 h-12 mr-4" />
+  <span class="text-2xl font-black text-primary text-shadow">KONURA</span>
+</router-link>
+
 
 
         <!-- Desktop Navigation -->
@@ -124,6 +125,7 @@ const getLinkClasses = (href) => {
     'transition-colors',
     'relative',
     'group',
+    'cursor-pointer',
     isActive ? 'text-primary font-bold' : 'text-white'
   ]
 }
@@ -160,6 +162,18 @@ const handleScroll = () => {
   const scrollY = window.scrollY
   navOpacity.value = Math.min(0.6 + (scrollY / 100) * 0.3, 0.9)
 }
+const handleLogoClick = () => {
+  if (route.path === '/') {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  } else {
+    router.push('/').then(() => {
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+      }, 150)
+    })
+  }
+}
+
 
 onMounted(() => {
   window.addEventListener('scroll', handleScroll, { passive: true })
@@ -176,19 +190,27 @@ onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
 })
 const handleNavClick = (link, event) => {
-  // Если это внешний якорь — скроллим до секции
+  // Если это якорь (#about и т.п.)
   if (!link.internal && link.href.startsWith('#')) {
     scrollToSection(link.href, event)
+    return
   }
 
-  // Если уже на нужной странице
-  if (route.path === link.href && link.href === '/') {
+  // Если кликают по той же странице — просто прокрутка наверх
+  if (route.path === link.href) {
     event.preventDefault()
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
-  // Закрыть меню на мобилке
+  // Если переход на другую внутреннюю страницу — дожидаемся роутинга и скроллим наверх
+  if (link.internal) {
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }, 150)
+  }
+
   closeMobileMenu()
 }
+
 
 </script>

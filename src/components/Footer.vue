@@ -93,7 +93,6 @@ const socialLinks = [
 const quickLinks = [
   { name: 'Подключиться', url: '#join', internal: false },
   { name: 'Правила', url: '#rules', internal: false },
-  { name: 'Магазин', url: '/shop', internal: true },
 ]
 
 

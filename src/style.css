@@ -4,13 +4,14 @@
 
 @layer base {
   html {
-    scroll-behavior: smooth;
+    scrollbar-gutter: stable;
   }
   
   body {
     @apply bg-dark-900 text-white font-sans overflow-x-hidden;
   }
 }
+
 
 @layer utilities {
   .router-link-exact-active {
@@ -123,6 +124,28 @@
     -webkit-backdrop-filter: blur(12px);
   }
 }
+
+/* Затемнённый фон с размытием */
+.custom-swal-backdrop {
+  background-color: rgba(31, 31, 31) ; /* тёмный с прозрачностью */
+}
+
+/* Оранжевая обводка и стилизация окна алерта */
+.custom-swal-popup {
+  border: 3px solid #f97316; /* оранжевая обводка */
+  border-radius: 1rem !important;
+  background-color: rgba(31, 31, 31, 0.5) !important; /* чуть непрозрачный фон */
+  box-shadow: 0 0 15px 3px rgba(249, 115, 22, 0.6);
+  backdrop-filter: blur(12px);
+}
+
+/* Опционально: сделать кнопку оранжевой более яркой */
+.custom-swal-popup .swal2-confirm {
+  background: linear-gradient(to right, #fb923c, #f97316) !important;
+  border: none !important;
+  box-shadow: 0 0 10px #f97316;
+}
+
 
 /* Custom animations not in Tailwind */
 @keyframes neonFlow {

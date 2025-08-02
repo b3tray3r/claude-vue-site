@@ -29,7 +29,7 @@
             <li v-for="link in quickLinks" :key="link.name">
               <a :href="link.url" 
                  class="text-gray-400 hover:text-primary transition-colors relative group">
-                <span class="absolute -left-5 opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+                
                 {{ link.name }}
               </a>
             </li>
@@ -43,7 +43,7 @@
             <li v-for="link in supportLinks" :key="link.name">
               <a :href="link.url" 
                  class="text-gray-400 hover:text-primary transition-colors relative group">
-                <span class="absolute -left-5 opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+                
                 {{ link.name }}
               </a>
             </li>
@@ -94,7 +94,7 @@ const socialLinks = [
 const quickLinks = [
   { name: 'Подключиться', url: '#join' },
   { name: 'Правила', url: '#rules' },
-  { name: 'Магазин', url: 'shop' },
+  { name: 'Магазин', url: '/shop' },
 ]
 
 const supportLinks = [

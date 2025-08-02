@@ -4,7 +4,7 @@
     :style="{ backgroundColor: `rgba(0, 0, 0, ${navOpacity})` }"
   >
     <div class="max-w-6xl mx-auto px-6 py-4">
-      <div class="flex items-center justify-between">
+      <div @click="handleNavClick(link, $event)" class="flex items-center justify-between">
         <!-- Logo -->
         <router-link to="/" class="flex items-center hover:opacity-80 transition-all">
           <img src="/src/assets/logo.png" alt="KONURA RUST Logo" class="w-12 h-12 mr-4" />

@@ -1,5 +1,5 @@
 import { ref } from 'vue'
-import RustWebRcon from '@/utils/rust-webrcon.js'
+import RustWebRcon from '../rust-webrcon.js'
 import { db } from '@/firebase'
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 

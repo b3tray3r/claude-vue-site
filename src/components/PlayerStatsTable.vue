@@ -43,18 +43,31 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
+import { collection, getDocs } from 'firebase/firestore'
+import { db } from '../firebase' // путь к твоему файлу firebase.js
 
-const players = ref([
-  { id: 1, name: 'ShadowHunter', kills: 24, deaths: 7, shotsFired: 230, shotsHit: 115 },
-  { id: 2, name: 'IronFist', kills: 15, deaths: 10, shotsFired: 190, shotsHit: 80 },
-  { id: 3, name: 'SilentWolf', kills: 30, deaths: 5, shotsFired: 300, shotsHit: 200 },
-  { id: 4, name: 'NightStalker', kills: 10, deaths: 12, shotsFired: 150, shotsHit: 60 },
-  { id: 5, name: 'FireBlade', kills: 20, deaths: 8, shotsFired: 210, shotsHit: 130 },
-  { id: 6, name: 'SteelArrow', kills: 18, deaths: 9, shotsFired: 180, shotsHit: 90 }
-])
-
+const players = ref([])
 const searchQuery = ref('')
+
+// Загрузка игроков из Firestore
+async function fetchPlayers() {
+  const snapshot = await getDocs(collection(db, 'rust_login_players'))
+  players.value = snapshot.docs.map(doc => {
+    const data = doc.data()
+
+    return {
+      id: doc.id,
+      name: Array.isArray(data.name) ? data.name[0] : 'Без имени',
+      kills: data.kills || 0,
+      deaths: data.deaths || 0,
+      shotsFired: data.shotsFired || 0,
+      shotsHit: data.shotsHit || 0
+    }
+  })
+}
+
+onMounted(fetchPlayers)
 
 const filteredPlayers = computed(() => {
   if (!searchQuery.value) return players.value
@@ -73,6 +86,7 @@ function calculateAccuracy(fired, hit) {
   return ((hit / fired) * 100).toFixed(2)
 }
 </script>
+
 
 <style scoped>
 input[type="search"] {

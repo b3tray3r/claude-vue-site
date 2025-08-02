@@ -9,13 +9,32 @@
         <PlayerStats />
       </div>
     </main>
-  </div>
 
-  <RconLogin />
+    <RconLogin />
+  </div>
 </template>
 
 <script setup>
-import PlayerStats from '../components/PlayerStats.vue';
+import PlayerStats from '../components/PlayerStats.vue'
+import RconLogin from '../components/RconLogin.vue'
+import { onMounted, onUnmounted } from 'vue'
+import { useWebRcon } from '@/composables/useWebRcon.js' // или путь к твоему хуку
+
+const { startAutoFetch, stopAutoFetch } = useWebRcon()
+
+// Запускаем автозагрузку при монтировании компонента
+onMounted(() => {
+  // Запускаем с интервалом 1 минута (для теста)
+  startAutoFetch(1000 * 60)
+
+  // Можно, например, вызвать и ручной первый запрос:
+  // connect()
+})
+
+// Очищаем таймер при размонтировании компонента
+onUnmounted(() => {
+  stopAutoFetch()
+})
 </script>
 
 <style scoped>

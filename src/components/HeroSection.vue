@@ -17,7 +17,7 @@
       </p>
 
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <button @click="connectToServer" 
+        <button @click="showServerInfo" 
                 class="btn-primary flex items-center justify-center space-x-2 text-lg px-8 py-4">
           <span>🚀</span>
           <span>Подключиться к серверу</span>
@@ -33,12 +33,45 @@
 </template>
 
 <script setup>
+
+
+import Swal from 'sweetalert2'
 import { useSteam } from '../composables/useSteam'
 import { useStats } from '../composables/useStats'
 import StatsContainer from './StatsContainer.vue'
 
 const steam = useSteam()
 const { connectToServer } = useStats()
+function showServerInfo() {
+  Swal.fire({
+    title: '🎮 Подключение к серверу',
+    html: `
+      <div style="text-align: left; font-size: 16px;">
+        <p><strong>IP:</strong> 203.16.163.232:28834</p>
+        <p><strong>Игроков онлайн:</strong> 70/150</p>
+        <p><strong>Карта:</strong> Barren, размер 3500</p>
+        <p><strong>Wipe:</strong> каждый четверг в 15:00</p>
+        <p><strong>Особенности:</strong> PvP, кланы, ивенты, магазины</p>
+      </div>
+    `,
+    confirmButtonText: 'Подключиться',
+    cancelButtonText: 'Отмена',
+    showCancelButton: true,
+    background: 'rgba(15,15,15,0.9)',
+    color: '#fff',
+    confirmButtonColor: '#f97316',
+    cancelButtonColor: '#555',
+    customClass: {
+      popup: 'backdrop-blur-md border border-orange-500 rounded-xl shadow-lg'
+    },
+    preConfirm: () => {
+      // Можно вызвать прямое подключение
+      window.location.href = 'steam://run/252490//+connect 203.16.163.232:28834'
+    }
+  })
+}
+
+
 </script>
 
 <style scoped>

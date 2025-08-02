@@ -94,7 +94,7 @@ const socialLinks = [
 const quickLinks = [
   { name: 'Подключиться', url: '#join' },
   { name: 'Правила', url: '#rules' },
-  { name: 'Магазин', url: 'shop/' },
+  { name: 'Магазин', url: 'shop' },
 ]
 
 const supportLinks = [

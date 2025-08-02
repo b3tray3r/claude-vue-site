@@ -96,7 +96,7 @@ export function useStats() {
   }
 
   const connectToServer = () => {
-    const message = `IP сервера: rust.konura.ru:28015\n\nСкопируйте адрес в консоль F1 в Rust:\nclient.connect rust.konura.ru:28015`
+    const message = `IP сервера: 203.16.163.232:28834\n\nСкопируйте адрес в консоль F1 в Rust:\nclient.connect 203.16.163.232:28834`
     alert(message)
   }
 

@@ -21,7 +21,7 @@
             :to="link.internal ? link.href : undefined"
             :replace="link.internal"
             :href="!link.internal ? link.href : undefined"
-            @click="!link.internal && scrollToSection(link.href, $event)"
+            @click="handleNavClick(link, $event)"
             :class="getLinkClasses(link.href)"
           >
             {{ link.name }}
@@ -43,7 +43,6 @@
           </div>
 
           <a href="steam://connect/203.16.163.232:28834" class="btn-primary flex items-center space-x-2">
-            <span>🎮</span>
             <span>Подключиться</span>
           </a>
 
@@ -132,7 +131,7 @@ const navLinks = [
   { name: 'Главная', href: '/', internal: true },
   { name: 'Магазин', href: '/shop', internal: true },
   { name: 'Статистика', href: '/stats', internal: true },
-  { name: 'Контакты', href: '#connect', internal: false },
+  { name: 'Контакты', href: '/contacts', internal: false },
 ]
 
 const scrollToSection = (href, event) => {
@@ -176,4 +175,20 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
 })
+const handleNavClick = (link, event) => {
+  // Если это внешний якорь — скроллим до секции
+  if (!link.internal && link.href.startsWith('#')) {
+    scrollToSection(link.href, event)
+  }
+
+  // Если уже на нужной странице
+  if (route.path === link.href && link.href === '/') {
+    event.preventDefault()
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  // Закрыть меню на мобилке
+  closeMobileMenu()
+}
+
 </script>

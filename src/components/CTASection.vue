@@ -23,7 +23,7 @@
             <span>Подключиться</span>
           </button>
           
-          <a href="shop/" 
+          <a href="shop" 
              class="btn-secondary flex items-center justify-center space-x-2 text-lg px-8 py-4">
             <span>🛒</span>
             <span>Магазин</span>

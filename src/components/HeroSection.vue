@@ -9,7 +9,7 @@
       <!-- Steam Welcome Message -->
       <div v-if="steamUser" 
            class="mb-6 text-2xl font-bold text-accent animate-pulse-glow">
-        Привет, {{ steamUser.name }}!
+        Привет, {{ steam.user.name }}!
       </div>
 
       <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed">
@@ -37,7 +37,7 @@ import { useSteam } from '../composables/useSteam'
 import { useStats } from '../composables/useStats'
 import StatsContainer from './StatsContainer.vue'
 
-const { user: steamUser } = useSteam()
+const steam = useSteam()
 const { connectToServer } = useStats()
 </script>
 

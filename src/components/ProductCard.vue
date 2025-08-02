@@ -64,10 +64,10 @@ export default {
   emits: ['buy'],
   data() {
     return {
-      isVisible: false
+      isVisible: false,
+      steam: useSteam()
     }
   },
-  steam: useSteam(),
   computed: {
     cardStyle() {
       return {

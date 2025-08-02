@@ -16,7 +16,6 @@
 
 <script setup>
 import PlayerStats from '../components/PlayerStats.vue'
-import RconLogin from '../components/RconLogin.vue'
 import { onMounted, onUnmounted } from 'vue'
 import { useWebRcon } from '../composables/useWebRcon.js' // или путь к твоему хуку
 

@@ -1,19 +1,14 @@
 <template>
-  <div
-    ref="card"
-    :style="cardStyle"
+  <div ref="card" :style="cardStyle"
     class="flex flex-col h-full p-6 rounded-xl border-2 bg-white/10 border-white/10 backdrop-blur-md transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:border-orange-500 group relative overflow-hidden"
     :class="{
       'border-yellow-400 bg-gradient-to-br from-yellow-400/10 to-white/10': product.class === 'gold',
       'border-gray-400 bg-gradient-to-br from-gray-400/10 to-white/10': product.class === 'silver',
       'border-amber-700 bg-gradient-to-br from-amber-700/10 to-white/10': product.class === 'bronze'
-    }"
-  >
+    }">
     <!-- Популярный баннер -->
-    <div
-      v-if="product.class?.includes('popular')"
-      class="absolute top-8 right-[-40px] bg-red-500 text-white px-10 py-1 text-xs font-bold rotate-45 shadow-lg z-10"
-    >
+    <div v-if="product.class?.includes('popular')"
+      class="absolute top-8 right-[-40px] bg-red-500 text-white px-10 py-1 text-xs font-bold rotate-45 shadow-lg z-10">
       ПОПУЛЯРНО
     </div>
 
@@ -34,11 +29,7 @@
 
     <!-- Особенности -->
     <ul class="mb-6 space-y-2">
-      <li
-        v-for="feature in product.features"
-        :key="feature"
-        class="flex items-center gap-2 text-white/80 text-sm"
-      >
+      <li v-for="feature in product.features" :key="feature" class="flex items-center gap-2 text-white/80 text-sm">
         <span class="text-green-400 font-bold">✓</span> {{ feature }}
       </li>
     </ul>
@@ -46,8 +37,7 @@
     <!-- Кнопка -->
     <button
       class="mt-auto w-full bg-gradient-to-br from-orange-500 to-orange-400 text-white font-semibold py-3 rounded-md flex items-center justify-center gap-2 transition-all duration-300 hover:from-orange-600 hover:to-orange-500 hover:-translate-y-1"
-      @click="$emit('buy', product)"
-    >
+      @click="handleBuy">
       <span class="text-lg">🛒</span> Купить сейчас
     </button>
   </div>
@@ -55,6 +45,8 @@
 
 
 <script>
+import Swal from 'sweetalert2'
+import { useSteam } from '../composables/useSteam'
 import { SHOP_CONFIG } from '../utils/shopData.js'
 
 export default {
@@ -75,6 +67,7 @@ export default {
       isVisible: false
     }
   },
+  steam: useSteam(),
   computed: {
     cardStyle() {
       return {
@@ -109,8 +102,25 @@ export default {
       if (this.$refs.card) {
         this.observer.observe(this.$refs.card)
       }
+    },
+    async handleBuy() {
+      if (!this.steam.isAuthenticated.value) {
+        await Swal.fire({
+          icon: 'warning',
+          title: 'Авторизация',
+          text: 'Пожалуйста, авторизуйтесь через Steam перед покупкой.',
+          confirmButtonText: 'Понятно',
+          background: '#1f1f1f',
+          color: '#fff',
+          confirmButtonColor: '#f97316' // оранжевый
+        })
+        return
+      }
+
+      this.$emit('buy', this.product)
     }
   }
+
+
 }
 </script>
-

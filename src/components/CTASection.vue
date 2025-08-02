@@ -18,7 +18,7 @@
         </p>
 
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <button @click="connectToServer"
+          <button @click="showServerInfo"
             class="btn-primary flex items-center justify-center space-x-2 text-lg px-8 py-4">
             <span>🚀</span>
             <span>Подключиться</span>

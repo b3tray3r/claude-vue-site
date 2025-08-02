@@ -43,7 +43,7 @@
             />
           </div>
 
-          <a href="steam://connect/203.16.163.232:28834" class="btn-primary flex items-center space-x-2">
+          <a href="steam://connect/203.16.163.232:28834" class="btn-primary flex items-center space-x-2" @click="showServerInfo">
             <span>Подключиться</span>
           </a>
 
@@ -212,5 +212,33 @@ const handleNavClick = (link, event) => {
   closeMobileMenu()
 }
 
+function showServerInfo() {
+  Swal.fire({
+    title: '🎮 Подключение к серверу',
+    html: `
+      <div style="text-align: left; font-size: 16px;">
+        <p><strong>IP:</strong> 203.16.163.232:28834</p>
+        <p><strong>Игроков онлайн:</strong> 70/150</p>
+        <p><strong>Карта:</strong> Barren, размер 3500</p>
+        <p><strong>Wipe:</strong> каждый четверг в 15:00</p>
+        <p><strong>Особенности:</strong> PvP, кланы, ивенты, магазины</p>
+      </div>
+    `,
+    confirmButtonText: 'Подключиться',
+    cancelButtonText: 'Отмена',
+    showCancelButton: true,
+    background: 'rgba(15,15,15,0.9)',
+    color: '#fff',
+    confirmButtonColor: '#f97316',
+    cancelButtonColor: '#555',
+    customClass: {
+      popup: 'backdrop-blur-md border border-orange-500 rounded-xl shadow-lg'
+    },
+    preConfirm: () => {
+      // Можно вызвать прямое подключение
+      window.location.href = 'steam://run/252490//+connect 203.16.163.232:28834'
+    }
+  })
+}
 
 </script>

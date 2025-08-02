@@ -9,8 +9,6 @@
         <PlayerStats />
       </div>
     </main>
-
-    <RconLogin />
   </div>
 </template>
 

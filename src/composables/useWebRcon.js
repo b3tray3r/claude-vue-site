@@ -1,6 +1,6 @@
 import { ref } from 'vue'
 import RustWebRcon from '../rust-webrcon.js'
-import { db } from '@/firebase'
+import { db } from '../firebase.js'
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 
 const players = ref([])

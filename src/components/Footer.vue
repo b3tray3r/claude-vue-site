@@ -9,13 +9,9 @@
           <p class="text-gray-300 mb-4 leading-relaxed">
             Интенсивные PvP бои, строительство и выживание.
           </p>
-          
+
           <div class="flex justify-center md:justify-start space-x-4">
-            <a v-for="social in socialLinks" :key="social.name"
-               :href="social.url" 
-               target="_blank" 
-               rel="noopener"
-               class="w-11 h-11 bg-white/10 rounded-full flex items-center justify-center 
+            <a v-for="social in socialLinks" :key="social.name" :href="social.url" target="_blank" rel="noopener" class="w-11 h-11 bg-white/10 rounded-full flex items-center justify-center 
                       hover:bg-primary hover:-translate-y-1 transition-all duration-300">
               <img :src="social.icon" :alt="social.name" class="w-6 h-6" />
             </a>
@@ -27,12 +23,16 @@
           <h3 class="text-lg font-bold mb-4">Быстрые ссылки</h3> <!-- размер и margin уменьшены -->
           <ul class="space-y-2"> <!-- уменьшен вертикальный отступ -->
             <li v-for="link in quickLinks" :key="link.name">
-              <a :href="link.url" 
-                 class="text-gray-400 hover:text-primary transition-colors relative group">
-                
+              <router-link v-if="link.internal" :to="link.url"
+                class="text-gray-400 hover:text-primary transition-colors relative group">
+                {{ link.name }}
+              </router-link>
+
+              <a v-else :href="link.url" class="text-gray-400 hover:text-primary transition-colors relative group">
                 {{ link.name }}
               </a>
             </li>
+
           </ul>
         </div>
 
@@ -41,9 +41,8 @@
           <h3 class="text-lg font-bold mb-4">Поддержка</h3> <!-- размер и margin уменьшены -->
           <ul class="space-y-2">
             <li v-for="link in supportLinks" :key="link.name">
-              <a :href="link.url" 
-                 class="text-gray-400 hover:text-primary transition-colors relative group">
-                
+              <a :href="link.url" class="text-gray-400 hover:text-primary transition-colors relative group">
+
                 {{ link.name }}
               </a>
             </li>
@@ -57,7 +56,7 @@
           <p class="text-gray-400 text-xs"> <!-- размер шрифта уменьшен -->
             &copy; 2024 Konura Rust. Все права защищены.
           </p>
-          
+
           <div class="flex space-x-4 text-xs"> <!-- уменьшены отступы и размер шрифта -->
             <a href="#privacy" class="text-gray-400 hover:text-primary transition-colors">
               Конфиденциальность
@@ -92,10 +91,11 @@ const socialLinks = [
 ]
 
 const quickLinks = [
-  { name: 'Подключиться', url: '#join' },
-  { name: 'Правила', url: '#rules' },
-  { name: 'Магазин', url: '/shop' },
+  { name: 'Подключиться', url: '#join', internal: false },
+  { name: 'Правила', url: '#rules', internal: false },
+  { name: 'Магазин', url: '/shop', internal: true },
 ]
+
 
 const supportLinks = [
   { name: 'Помощь', url: '#help' },

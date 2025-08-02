@@ -131,7 +131,7 @@ const navLinks = [
   { name: 'Главная', href: '/', internal: true },
   { name: 'Магазин', href: '/shop', internal: true },
   { name: 'Статистика', href: '/stats', internal: true },
-  { name: 'Контакты', href: '/contacts', internal: false },
+  { name: 'Контакты', href: '/contacts', internal: true },
 ]
 
 const scrollToSection = (href, event) => {

@@ -109,6 +109,7 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useSteam } from '../composables/useSteam'
 import { useRoute } from 'vue-router'
+import Swal from 'sweetalert2'
 const route = useRoute()
 
 const { user: steamUser, isAuthenticated, login, logout } = useSteam()

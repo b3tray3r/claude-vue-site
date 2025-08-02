@@ -97,4 +97,4 @@ class RustWebRcon {
 		this.socket.send(packet)
 	}
 }
-window['RustWebRcon'] = RustWebRcon;
+export default RustWebRcon;

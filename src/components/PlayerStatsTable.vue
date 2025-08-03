@@ -22,16 +22,16 @@
         <tbody>
           <tr
             v-for="player in filteredPlayers"
-            :key="player.id"
+            :key="player.steamId"
             class="border-b border-gray-700 hover:bg-gray-700 text-white"
           >
-            <td class="px-4 py-2">{{ player.name }}</td>
+            <td class="px-4 py-2">{{ player.names?.at(-1) || 'Без имени' }}</td>
             <td class="px-4 py-2 text-right">{{ player.kills }}</td>
             <td class="px-4 py-2 text-right">{{ player.deaths }}</td>
             <td class="px-4 py-2 text-right">{{ calculateKDA(player.kills, player.deaths) }}</td>
-            <td class="px-4 py-2 text-right">{{ player.shotsFired }}</td>
-            <td class="px-4 py-2 text-right">{{ player.shotsHit }}</td>
-            <td class="px-4 py-2 text-right">{{ calculateAccuracy(player.shotsFired, player.shotsHit) }}</td>
+            <td class="px-4 py-2 text-right">{{ player.shots }}</td>
+            <td class="px-4 py-2 text-right">{{ player.headshots }}</td>
+            <td class="px-4 py-2 text-right">{{ calculateAccuracy(player.shots, player.headshots) }}</td>
           </tr>
           <tr v-if="filteredPlayers.length === 0">
             <td class="px-4 py-2 text-center" colspan="7">Игроки не найдены.</td>
@@ -44,27 +44,19 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import { collection, getDocs } from 'firebase/firestore'
-import { db } from '../firebase' // путь к твоему файлу firebase.js
 
 const players = ref([])
 const searchQuery = ref('')
 
-// Загрузка игроков из Firestore
 async function fetchPlayers() {
-  const snapshot = await getDocs(collection(db, 'rust_login_players'))
-  players.value = snapshot.docs.map(doc => {
-    const data = doc.data()
-
-    return {
-      id: doc.id,
-      name: Array.isArray(data.name) ? data.name[0] : 'Без имени',
-      kills: data.kills || 0,
-      deaths: data.deaths || 0,
-      shotsFired: data.shotsFired || 0,
-      shotsHit: data.shotsHit || 0
-    }
-  })
+  try {
+    const response = await fetch('https://ktor-server-u2py.onrender.com/rcon/stats-players-list')
+    const data = await response.json()
+    console.log('📥 Получены игроки:', data)
+    players.value = data
+  } catch (error) {
+    console.error('❌ Ошибка при загрузке игроков:', error)
+  }
 }
 
 onMounted(fetchPlayers)
@@ -72,7 +64,7 @@ onMounted(fetchPlayers)
 const filteredPlayers = computed(() => {
   if (!searchQuery.value) return players.value
   return players.value.filter(player =>
-    player.name.toLowerCase().includes(searchQuery.value.toLowerCase())
+    (player.names?.at(-1) || '').toLowerCase().includes(searchQuery.value.toLowerCase())
   )
 })
 
@@ -81,12 +73,11 @@ function calculateKDA(kills, deaths) {
   return (kills / deaths).toFixed(2)
 }
 
-function calculateAccuracy(fired, hit) {
-  if (fired === 0) return '0.00'
-  return ((hit / fired) * 100).toFixed(2)
+function calculateAccuracy(shots, headshots) {
+  if (shots === 0) return '0.00'
+  return ((headshots / shots) * 100).toFixed(2)
 }
 </script>
-
 
 <style scoped>
 input[type="search"] {

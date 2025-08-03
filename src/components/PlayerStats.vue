@@ -20,9 +20,9 @@
 
     <!-- Контент вкладки -->
     <div>
-      <PlayerStatsTable v-if="currentTab === 'players'" />
-      <WeaponStatsTable v-if="currentTab === 'weapons'" />
-      <TeamStatsTable v-if="currentTab === 'teams'" />
+<PlayerStatsTable v-if="currentTab === 'players'" />
+<ResourceStatsTable :active="currentTab === 'resources'" v-if="currentTab === 'resources'" />
+<TeamStatsTable v-if="currentTab === 'teams'" />
     </div>
   </div>
 </template>
@@ -30,17 +30,19 @@
 <script setup>
 import { ref } from 'vue'
 import PlayerStatsTable from './PlayerStatsTable.vue'
-import WeaponStatsTable from './WeaponStatsTable.vue'
+import ResourceStatsTable from './ResourceStatsTable.vue'
 import TeamStatsTable from './TeamStatsTable.vue'
 
 const tabs = [
   { key: 'players', label: 'Игроки' },
-  { key: 'weapons', label: 'Оружие' },
+  { key: 'resources', label: 'Ресурсы' },
   { key: 'teams', label: 'Команды' }
 ]
 
 const currentTab = ref('players')
 </script>
+
+
 
 <style scoped>
 .tabs button {

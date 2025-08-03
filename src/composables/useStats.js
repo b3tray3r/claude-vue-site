@@ -18,6 +18,7 @@ export function useStats() {
     onlineMembers: 0
   })
   
+  
   const wipeTime = ref('')
   const loading = ref(false)
   

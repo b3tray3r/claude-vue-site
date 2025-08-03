@@ -92,7 +92,7 @@ const filteredPlayers = computed(() => {
 
 async function fetchPlayers() {
   try {
-    const response = await fetch('https://konurarust.onrender.com/rcon/stats-players-list')
+    const response = await fetch('https://ktor-server-u2py.onrender.com/rcon/stats-players-list')
     const data = await response.json()
     players.value = data
   } catch (e) {

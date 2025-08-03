@@ -6,7 +6,20 @@
       placeholder="Поиск игрока..."
       class="mb-4 p-2 rounded w-full max-w-md text-black"
     />
-    <div class="overflow-x-auto">
+
+    <div v-if="loading" class="flex justify-center my-8">
+      <img
+        src="https://api.iconify.design/svg-spinners:blocks-shuffle-2.svg?color=%23f97316"
+        alt="Loading spinner"
+        class="w-12 h-12"
+      />
+    </div>
+
+    <div v-else-if="timeoutReached && players.length === 0" class="text-white text-center mt-8">
+      Нет данных о ресурсах для отображения.
+    </div>
+
+    <div v-else class="overflow-x-auto">
       <table class="min-w-full bg-gray-800 rounded-md">
         <thead>
           <tr class="border-b border-gray-600 text-white">
@@ -47,6 +60,8 @@ import { ref, computed, onMounted } from 'vue'
 
 const players = ref([])
 const searchQuery = ref('')
+const loading = ref(true)
+const timeoutReached = ref(false)
 
 async function fetchPlayers() {
   try {
@@ -56,10 +71,23 @@ async function fetchPlayers() {
     players.value = data
   } catch (error) {
     console.error('❌ Ошибка при загрузке игроков:', error)
+  } finally {
+    loading.value = false
   }
 }
 
-onMounted(fetchPlayers)
+onMounted(() => {
+  // Запускаем загрузку данных
+  fetchPlayers()
+
+  // Таймаут 30 секунд
+  setTimeout(() => {
+    if (loading.value) {
+      timeoutReached.value = true
+      loading.value = false
+    }
+  }, 30000)
+})
 
 const filteredPlayers = computed(() => {
   if (!searchQuery.value) return players.value

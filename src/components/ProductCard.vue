@@ -47,7 +47,6 @@
 <script>
 import Swal from 'sweetalert2'
 import { useSteam } from '../composables/useSteam'
-import { SHOP_CONFIG } from '../utils/shopData.js'
 
 export default {
   name: 'ProductCard',
@@ -64,8 +63,7 @@ export default {
   emits: ['buy'],
   data() {
     return {
-      isVisible: false,
-      steam: useSteam()
+      isVisible: false
     }
   },
   computed: {
@@ -73,7 +71,7 @@ export default {
       return {
         opacity: this.isVisible ? 1 : 0,
         transform: this.isVisible ? 'translateY(0)' : 'translateY(30px)',
-        transition: `opacity 0.6s ease ${this.index * SHOP_CONFIG.ANIMATION.CARD_DELAY}ms, transform 0.6s ease ${this.index * SHOP_CONFIG.ANIMATION.CARD_DELAY}ms`
+        transition: `opacity 0.6s ease ${this.index * 100}ms, transform 0.6s ease ${this.index * 100}ms`
       }
     }
   },
@@ -104,7 +102,12 @@ export default {
       }
     },
     async handleBuy() {
-      if (!this.steam.isAuthenticated.value) {
+      const steam = useSteam()
+      
+      // Обновляем состояние авторизации перед покупкой
+      await steam.refreshAuth()
+      
+      if (!steam.isAuthenticated.value) {
         await Swal.fire({
           imageUrl: "https://konurarust.com/assets/logo-3nGJ9XyH.png",
           imageWidth: 200,
@@ -121,16 +124,12 @@ export default {
             popup: 'custom-swal-popup',
             backdrop: 'custom-swal-backdrop'
           }
-
-
         })
         return
       }
-
+      
       this.$emit('buy', this.product)
     }
   }
-
-
 }
 </script>

@@ -1,5 +1,6 @@
 // src/router.js
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
+
 import Layout from './components/Layout.vue'
 import Home from './pages/Home.vue'
 import Shop from './pages/Shop.vue'
@@ -20,7 +21,8 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(),
+
+history: createWebHashHistory(), // 💡 теперь ссылки будут с #
   routes,
 })
 

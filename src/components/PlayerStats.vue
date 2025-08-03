@@ -1,13 +1,12 @@
 <template>
-  <div class="stats-tabs p-6 bg-gray-900/60 rounded-md text-white max-w-5xl mx-auto">
-
+  <div class="stats-tabs w-[80vw] p-6 bg-gray-900/60 rounded-md text-white mx-auto">
     <!-- Вкладки -->
     <div class="tabs flex gap-4 mb-6">
       <button
         v-for="tab in tabs"
         :key="tab.key"
         @click="currentTab = tab.key"
-        :class="[
+        :class="[ 
           'px-4 py-2 rounded font-semibold transition',
           currentTab === tab.key
             ? 'bg-orange-500 text-black'
@@ -20,12 +19,13 @@
 
     <!-- Контент вкладки -->
     <div>
-<PlayerStatsTable v-if="currentTab === 'players'" />
-<ResourceStatsTable :active="currentTab === 'resources'" v-if="currentTab === 'resources'" />
-<TeamStatsTable v-if="currentTab === 'teams'" />
+      <PlayerStatsTable v-if="currentTab === 'players'" />
+      <ResourceStatsTable :active="currentTab === 'resources'" v-if="currentTab === 'resources'" />
+      <TeamStatsTable v-if="currentTab === 'teams'" />
     </div>
   </div>
 </template>
+
 
 <script setup>
 import { ref } from 'vue'

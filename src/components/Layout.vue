@@ -6,7 +6,7 @@
       <router-view />
       <CookieNotice />
     </main>
-    <DiscordSideBar />
+    
 
     <Footer />
 

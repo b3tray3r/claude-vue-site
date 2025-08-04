@@ -2,10 +2,12 @@
 export const SHOP_CONFIG = {
     // Категории товаров
     CATEGORIES: {
+        privilege: 'Привелегии',
         subscriptions: 'Подписки',
         items: 'Предметы',
         access: 'Доступы',
         kits: 'Наборы'
+        
     },
 
     // Анимации
@@ -207,5 +209,38 @@ export const SHOP_DATA = {
             ],
             class: 'builder'
         }
+    ],
+    privilege: [
+        {
+            id: 'vip_que_3',
+            name: 'Приоритетная очередь',
+            price: 299,
+            icon: '⏳',
+            description: 'Приоритетная очередь на сервере',
+            features: ['Доступ на сервер в час пик, без очереди'],
+            duration: '3 дня',
+            class: 'queue_3'
+        },
+        {
+            id: 'vip_que_7',
+            name: 'Приоритетная очередь',
+            price: 499,
+            icon: '⏳',
+            description: 'Приоритетная очередь на сервере',
+            features: ['Доступ на сервер в час пик, без очереди'],
+            duration: '7 дней',
+            class: 'queue_7 popular'
+        },
+        {
+            id: 'vip_que_30',
+            name: 'Приоритетная очередь',
+            price: 999,
+            icon: '⏳',
+            description: 'Приоритетная очередь на сервере',
+            features: ['Доступ на сервер в час пик, без очереди'],
+            duration: '30 дней',
+            class: 'queue_30'
+        }
+
     ]
 };

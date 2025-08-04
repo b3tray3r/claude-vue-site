@@ -21,7 +21,9 @@ export default {
         }
       },
       fontFamily: {
-        sans: ['Segoe UI', 'Tahoma', 'Geneva', 'Verdana', 'sans-serif']
+        sans: ['Segoe UI', 'Tahoma', 'Geneva', 'Verdana', 'sans-serif'],
+        condensed: ['"Roboto Condensed"', 'sans-serif'],
+        source: ['"Source Sans 3"', 'sans-serif']
       },
       animation: {
         'neon-flow': 'neonFlow 6s linear infinite',

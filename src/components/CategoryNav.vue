@@ -23,10 +23,12 @@ defineEmits(['select'])
 
 function getIcon(key) {
   return {
+    privilege: '👑',
     subscriptions: '⭐',
     items: '🔧',
     access: '🔑',
     kits: '📦'
+    
   }[key] || '🎁'
 }
 </script>

@@ -65,7 +65,7 @@ export default {
   },
   data() {
     return {
-      currentCategory: 'subscriptions',
+      currentCategory: 'privilege',
       categories: SHOP_CONFIG.CATEGORIES,
       shopData: SHOP_DATA,
       showModal: false,

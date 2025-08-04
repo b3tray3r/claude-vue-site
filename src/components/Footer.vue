@@ -54,7 +54,7 @@
       <div class="border-t border-white/10 pt-4"> <!-- padding сверху уменьшен -->
         <div class="flex flex-col md:flex-row justify-between items-center gap-2">
           <p class="text-gray-400 text-xs"> <!-- размер шрифта уменьшен -->
-            &copy; 2024 Konura Rust. Все права защищены.
+            &copy; 2025 Konura Rust. Все права защищены.
           </p>
 
           <div class="flex flex-wrap gap-2 text-xs"> <!-- изменено на flex-wrap и gap для адаптивности -->

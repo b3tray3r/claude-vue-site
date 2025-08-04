@@ -18,6 +18,14 @@
         <span class="text-gray-300">👥 Игроков онлайн</span>
         <span class="font-semibold">{{ players }}/{{ maxPlayers }}</span>
       </div>
+      <div class="flex justify-between items-center mb-4">
+        <span class="text-gray-300">👥 Заходят </span>
+        <span class="font-semibold">{{ playersJoining }}</span>
+      </div>
+      <div class="flex justify-between items-center mb-4">
+        <span class="text-gray-300">👥 В очереди</span>
+        <span class="font-semibold">{{ playersQueued }}</span>
+      </div>
 
       <div class="mb-4">
         <div class="h-2 bg-white/20 rounded-full overflow-hidden mb-2">
@@ -94,6 +102,8 @@ const status = ref('offline')
 const lastWipe = ref(null)
 const metricsWipeDate = ref('--')
 const metricsServerStatus = ref('offline')
+const playersQueued = ref(0)
+const playersJoining = ref(0)
 
 const serverStatusClass = computed(() => {
   return players.value > 0 || metricsServerStatus.value === 'online' 
@@ -128,6 +138,8 @@ async function fetchRustServerInfo() {
     maxPlayers.value = data.maxPlayers ?? 40
     status.value = data.status ?? 'offline'
     lastWipe.value = data.lastWipe ?? null
+    playersQueued.value = data.queued ?? 0
+    playersJoining.value = data.joining ?? 0
   } catch (error) {
     console.error('Ошибка при загрузке данных сервера:', error)
     status.value = 'offline'

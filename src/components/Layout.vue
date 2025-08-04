@@ -6,6 +6,7 @@
       <router-view />
       <CookieNotice />
     </main>
+    <DiscordSideBar />
 
     <Footer />
 
@@ -19,6 +20,7 @@ import Navigation from './Navigation.vue'
 import VideoBackground from './VideoBackground.vue'
 import CookieNotice from './CookieNotice.vue'
 import Footer from './Footer.vue'
+import DiscordSideBar from './DiscordSideBar.vue'
 </script>
 
 <style>

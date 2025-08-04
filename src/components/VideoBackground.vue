@@ -19,6 +19,7 @@
 
 <script setup>
 import domeVideo from '../assets/dome.mp4'
+
 </script>
 
 <style scoped>

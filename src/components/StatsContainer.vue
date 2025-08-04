@@ -35,7 +35,7 @@
         </div>
         <span class="text-gray-400 text-sm">{{ fillPercentage }}% заполненность</span>
       </div>
-      <button @click="joinDiscord" class="btn-discord mt-auto w-full">
+      <button @click="joinMetrics" class="btn-discord mt-auto w-full">
         <span class="mr-2"></span>
         Battle Metrics
       </button>
@@ -92,7 +92,7 @@
           <span class="font-bold text-primary text-xl">{{ topHeadshotsCount }}</span>
         </div>
       </div>
-      <button @click="joinDiscord" class="btn-primary mt-auto w-full">
+      <button @click="openStats" class="btn-primary mt-auto w-full">
         <span class="mr-2"></span>
         Статистика
       </button>
@@ -104,7 +104,7 @@
 import { computed, ref, onMounted } from 'vue'
 import { useStats } from '../composables/useStats'
 
-const { discordStats, joinDiscord } = useStats()
+const { discordStats, joinDiscord, openStats, joinMetrics } = useStats()
 
 const players = ref(0)
 const maxPlayers = ref(40)

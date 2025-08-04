@@ -104,6 +104,12 @@ export function useStats() {
   const joinDiscord = () => {
     window.open('https://discord.gg/pYR8brsq5W', '_blank')
   }
+  const joinMetrics = () => {
+    window.open('https://www.battlemetrics.com/servers/rust/34847101', '_blank')
+  }
+  const openStats = () => {
+    window.open('https://konurarust.com/#/stats', '_blank')
+  }
 
   onMounted(() => {
     updateStats()
@@ -127,6 +133,8 @@ export function useStats() {
     loading,
     connectToServer,
     joinDiscord,
+    openStats,
+    joinMetrics,
     updateStats
   }
 }

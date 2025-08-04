@@ -96,7 +96,7 @@
   
   /* Card styles */
   .card {
-    @apply bg-black/70 backdrop-blur-sm border border-white/10 rounded-xl p-6 
+    @apply bg-black/40 backdrop-blur-lg border border-white/10 rounded-xl p-6 
            shadow-2xl transition-transform duration-300 hover:-translate-y-1 relative overflow-hidden;
   }
   

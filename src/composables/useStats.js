@@ -108,7 +108,7 @@ export function useStats() {
     window.open('https://www.battlemetrics.com/servers/rust/34847101', '_blank')
   }
   const openStats = () => {
-    window.open('https://konurarust.com/#/stats')
+    window.open('https://konurarust.com/#/stats', '_self')
   }
 
   onMounted(() => {

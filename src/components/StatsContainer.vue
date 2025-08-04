@@ -3,7 +3,7 @@
     <!-- Rust Server Stats -->
     <div class="card animate-fade-up relative">
       <div class="neon-line" style="animation-delay: 0s;"></div>
-      
+
       <div class="flex justify-between items-center mb-6">
         <h3 class="text-xl font-bold">Статус сервера</h3>
         <span :class="serverStatusClass">{{ serverStatusText }}</span>
@@ -21,8 +21,9 @@
 
       <div class="mb-4">
         <div class="h-2 bg-white/20 rounded-full overflow-hidden mb-2">
-          <div class="h-full bg-gradient-to-r from-secondary via-accent to-pink-500 rounded-full transition-all duration-1000"
-               :style="{ width: `${fillPercentage}%` }"></div>
+          <div
+            class="h-full bg-gradient-to-r from-secondary via-accent to-pink-500 rounded-full transition-all duration-1000"
+            :style="{ width: `${fillPercentage}%` }"></div>
         </div>
         <span class="text-gray-400 text-sm">{{ fillPercentage }}% заполненность</span>
       </div>
@@ -31,7 +32,7 @@
     <!-- Discord Stats -->
     <div class="card animate-fade-up relative">
       <div class="neon-line" style="animation-delay: 1.3s;"></div>
-      
+
       <div class="flex justify-between items-center mb-6">
         <h3 class="text-xl font-bold">Discord сервер</h3>
         <span class="status-live">Live</span>
@@ -62,7 +63,7 @@
     <!-- Server Info -->
     <div class="card animate-fade-up relative">
       <div class="neon-line" style="animation-delay: 2.6s;"></div>
-      
+
       <div class="mb-6">
         <h3 class="text-xl font-bold">Информация о сервере</h3>
       </div>
@@ -70,7 +71,7 @@
       <div class="space-y-4">
         <div class="flex justify-between items-center">
           <span class="text-gray-300">Дата последнего вайпа:</span>
-          <span class="font-semibold">{{ wipeDate }}</span>
+          <span class="font-semibold">{{ metricsWipeDate }}</span>
         </div>
         <div class="flex justify-between items-center">
           <span class="text-gray-300">Время с вайпа:</span>
@@ -87,29 +88,21 @@ import { useStats } from '../composables/useStats'
 
 const { discordStats, wipeTime, joinDiscord } = useStats()
 
-// Реактивные переменные для данных сервера
 const players = ref(0)
 const maxPlayers = ref(40)
 const status = ref('offline')
 const lastWipe = ref(null)
+const metricsWipeDate = ref('--')
+const metricsServerStatus = ref('offline')
 
-// Вычисляемые свойства
 const serverStatusClass = computed(() => {
-  // Если игроков больше 0, то сервер точно онлайн
-  if (players.value > 0) {
-    return 'status-online'
-  }
-  // Иначе используем старую логику из API
-  return status.value === 'online' ? 'status-online' : 'status-offline'
+  return players.value > 0 || metricsServerStatus.value === 'online' 
+  ? 'status-online' 
+  : 'status-offline'
 })
 
 const serverStatusText = computed(() => {
-  // Если игроков больше 0, то сервер точно онлайн
-  if (players.value > 0) {
-    return 'Онлайн'
-  }
-  // Иначе используем старую логику из API
-  return status.value === 'online' ? 'Онлайн' : 'Оффлайн'
+  return players.value > 0 || metricsServerStatus.value === 'online' ? 'Онлайн' : 'Оффлайн'
 })
 
 const fillPercentage = computed(() => {
@@ -117,7 +110,7 @@ const fillPercentage = computed(() => {
 })
 
 const wipeDate = computed(() => {
-  return lastWipe.value 
+  return lastWipe.value
     ? new Date(lastWipe.value).toLocaleDateString('ru-RU')
     : '--'
 })
@@ -126,7 +119,6 @@ const formatNumber = (num) => {
   return Number(num).toLocaleString('ru-RU')
 }
 
-// Функция для получения данных с сервера
 async function fetchRustServerInfo() {
   try {
     const res = await fetch('https://ktor-server-u2py.onrender.com/rcon/server-info')
@@ -142,10 +134,31 @@ async function fetchRustServerInfo() {
   }
 }
 
-// Загружаем данные при монтировании компонента
+async function fetchBattleMetrics() {
+  try {
+    const res = await fetch('https://api.battlemetrics.com/servers/34847101')
+    const data = await res.json()
+
+    const wipeRaw = data.data.attributes.details.rust_last_wipe
+    metricsServerStatus.value = data.data.attributes.status
+
+    if (wipeRaw) {
+      const wipeDate = new Date(wipeRaw)
+      metricsWipeDate.value = wipeDate.toLocaleDateString('ru-RU') // например, "03.08.2025"
+    } else {
+      metricsWipeDate.value = '--'
+    }
+  } catch (error) {
+    console.error('Ошибка при загрузке BattleMetrics:', error)
+    metricsWipeDate.value = '--'
+  }
+}
+
+
+// Один onMounted для всего
 onMounted(() => {
   fetchRustServerInfo()
-  // Обновляем данные каждые 30 секунд
+  fetchBattleMetrics()
   setInterval(fetchRustServerInfo, 30000)
 })
 </script>

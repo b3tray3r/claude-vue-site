@@ -1,6 +1,6 @@
 <template>
   <div ref="card" :style="cardStyle"
-    class="flex flex-col h-full p-6 rounded-xl border-2 bg-white/10 border-white/10 backdrop-blur-md transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:border-orange-500 group relative overflow-hidden"
+    class="flex flex-col h-full p-6 rounded-xl border-2 bg-black/40 border-white/10 backdrop-blur-md transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:border-orange-500 group relative overflow-hidden"
     :class="{
       'border-yellow-400 bg-gradient-to-br from-yellow-400/10 to-white/10': product.class === 'gold',
       'border-gray-400 bg-gradient-to-br from-gray-400/10 to-white/10': product.class === 'silver',
@@ -33,12 +33,21 @@
         <span class="text-green-400 font-bold">✓</span> {{ feature }}
       </li>
     </ul>
+    <!-- Картинка -->
+    <div class="mb-4">
+  <img
+    :src="product.image"
+    alt="product image"
+    class="w-full h-full object-cover rounded-lg  transition-transform duration-300 transform group-hover:scale-105 group-hover:rotate-2"
+  />
+</div>
+
 
     <!-- Кнопка -->
     <button
       class="mt-auto w-full bg-gradient-to-br from-orange-500 to-orange-400 text-white font-semibold py-3 rounded-md flex items-center justify-center gap-2 transition-all duration-300 hover:from-orange-600 hover:to-orange-500 hover:-translate-y-1"
       @click="handleBuy">
-      <span class="text-lg">🛒</span> Купить сейчас
+      <span class="text-lg"></span> Купить сейчас
     </button>
   </div>
 </template>

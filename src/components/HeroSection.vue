@@ -1,5 +1,5 @@
 <template>
-  <section id="home" class="min-h-screen flex flex-col justify-center items-center text-center px-6 py-32 z-20 relative">
+  <section id="home" class="min-h-screen flex flex-col justify-center items-center text-center px-6 py-6 z-20 relative">
     <!-- Hero Content -->
     <div class="mb-16 animate-fade-up">
       <h1 class="text-6xl md:text-8xl font-black mb-6 text-shadow-lg leading-none">

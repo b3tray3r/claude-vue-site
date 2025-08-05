@@ -101,17 +101,19 @@
     </div>
 
     <!-- Scroll Down Arrow (по центру и исчезает при скролле) -->
-    <div
-      ref="scrollArrow"
-      class="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-500 pointer-events-none "
-      :class="{ 'opacity-0 translate-y-10': hideArrow }"
-    >
-      <img
-        src="https://api.iconify.design/cuida:arrow-down-circle-outline.svg?color=%23000000"
-        alt="Scroll down"
-        class="w-20 h-20 animate-bounce opacity-50"
-      />
-    </div>
+    <!-- Scroll Down Arrow (по центру и исчезает при скролле) -->
+<div
+  ref="scrollArrow"
+  class="fixed top-1/2 right-6 transform -translate-y-1/2 z-50 transition-all duration-500 pointer-events-none"
+  :class="{ 'opacity-0 translate-y-10': hideArrow }"
+>
+  <img
+    src="https://api.iconify.design/cuida:arrow-down-circle-outline.svg?color=%23000000"
+    alt="Scroll down"
+    class="w-20 h-20 animate-bounce opacity-50"
+  />
+</div>
+
   </div>
 </template>
 <script setup>

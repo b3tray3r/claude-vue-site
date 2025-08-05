@@ -35,7 +35,8 @@
         </div>
         <span class="text-gray-400 text-sm">{{ fillPercentage }}% заполненность</span>
       </div>
-      <button @click="openShop" class="btn-discord mt-auto w-full">
+
+      <button @click="openShop" class="btn-primary mt-auto w-full">
         <span class="mr-2"></span>
         Купить пропуск
       </button>
@@ -81,10 +82,10 @@
       </div>
 
       <div class="space-y-4">
-          <div class="flex justify-between items-center py-2 px-4 border-b border-white/10 ">
+        <div class="flex justify-between items-center py-2 px-4 border-b border-white/10 ">
           <span class="text-gray-300 text-base">Убийства:</span>
           <span class="font-bold text-white text-xl">{{ topKillsName }}</span>
-          <span class="font-bold  text-primary text-xl">{{ topKillsCount }}</span>
+          <span class="font-bold text-primary text-xl">{{ topKillsCount }}</span>
         </div>
         <div class="flex justify-between items-center py-2 px-4 border-b border-white/10 ">
           <span class="text-gray-300 text-base">Хэдшоты:</span>
@@ -92,16 +93,29 @@
           <span class="font-bold text-primary text-xl">{{ topHeadshotsCount }}</span>
         </div>
       </div>
-      <button @click="openStats" class="btn-primary mt-auto w-full">
+
+      <button @click="openStats" class="btn-discord mt-auto w-full">
         <span class="mr-2"></span>
         Статистика
       </button>
     </div>
+
+    <!-- Scroll Down Arrow (по центру и исчезает при скролле) -->
+    <div
+      ref="scrollArrow"
+      class="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-500 pointer-events-none "
+      :class="{ 'opacity-0 translate-y-10': hideArrow }"
+    >
+      <img
+        src="https://api.iconify.design/cuida:arrow-down-circle-outline.svg?color=%23000000"
+        alt="Scroll down"
+        class="w-20 h-20 animate-bounce opacity-50"
+      />
+    </div>
   </div>
 </template>
-
 <script setup>
-import { computed, ref, onMounted } from 'vue'
+import { computed, ref, onMounted, onUnmounted } from 'vue'
 import { useStats } from '../composables/useStats'
 
 const { discordStats, joinDiscord, openStats, openShop } = useStats()
@@ -119,11 +133,29 @@ const topKillsCount = ref(0)
 const topHeadshotsName = ref('—')
 const topHeadshotsCount = ref(0)
 
+// Scroll arrow logic
+const hideArrow = ref(false)
+const handleScroll = () => {
+  hideArrow.value = window.scrollY > 50
+}
+
+onMounted(() => {
+  fetchRustServerInfo()
+  fetchBattleMetrics()
+  getTopKills()
+  getTopHeadshots()
+  setInterval(fetchRustServerInfo, 30000)
+  window.addEventListener('scroll', handleScroll)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
+})
 
 const serverStatusClass = computed(() => {
-  return players.value > 0 || metricsServerStatus.value === 'online' 
-  ? 'status-online' 
-  : 'status-offline'
+  return players.value > 0 || metricsServerStatus.value === 'online'
+    ? 'status-online'
+    : 'status-offline'
 })
 
 const serverStatusText = computed(() => {
@@ -165,7 +197,6 @@ async function getTopKills() {
   try {
     const res = await fetch('https://ktor-server-u2py.onrender.com/rcon/leaderboard/kills/1')
     const data = await res.json()
-
     const top = data.leaderboard?.[0]
     topKillsName.value = top?.name ?? '—'
     topKillsCount.value = top?.value ?? 0
@@ -174,12 +205,10 @@ async function getTopKills() {
   }
 }
 
-
 async function getTopHeadshots() {
   try {
     const res = await fetch('https://ktor-server-u2py.onrender.com/rcon/leaderboard/headshots/1')
     const data = await res.json()
-
     const top = data.leaderboard?.[0]
     topHeadshotsName.value = top?.name ?? '—'
     topHeadshotsCount.value = top?.value ?? 0
@@ -187,9 +216,6 @@ async function getTopHeadshots() {
     console.error('Ошибка при загрузке топ хедшотов:', error)
   }
 }
-
-
-
 
 async function fetchBattleMetrics() {
   try {
@@ -201,7 +227,7 @@ async function fetchBattleMetrics() {
 
     if (wipeRaw) {
       const wipeDate = new Date(wipeRaw)
-      metricsWipeDate.value = wipeDate.toLocaleDateString('ru-RU') // например, "03.08.2025"
+      metricsWipeDate.value = wipeDate.toLocaleDateString('ru-RU')
     } else {
       metricsWipeDate.value = '--'
     }
@@ -210,14 +236,4 @@ async function fetchBattleMetrics() {
     metricsWipeDate.value = '--'
   }
 }
-
-
-// Один onMounted для всего
-onMounted(() => {
-  fetchRustServerInfo()
-  fetchBattleMetrics()
-  getTopKills()
-  getTopHeadshots()
-  setInterval(fetchRustServerInfo, 30000)
-})
 </script>

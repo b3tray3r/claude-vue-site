@@ -1,21 +1,22 @@
 <template>
   <div class="min-h-screen bg-dark-900 text-white">
-    
+
     <!-- Video Background -->
     <VideoBackground />
-    
+
     <!-- Hero Section -->
     <HeroSection />
-    
+  
+
     <!-- Map Section -->
     <MapSection />
-    
+
     <!-- Content Section -->
     <!-- <ContentSection /> -->
-    
+
     <!-- CTA Section -->
     <CTASection />
-  
+
   </div>
 </template>
 

@@ -21,7 +21,6 @@
     <div>
       <PlayerStatsTable v-if="currentTab === 'players'" />
       <ResourceStatsTable :active="currentTab === 'resources'" v-if="currentTab === 'resources'" />
-      <TeamStatsTable v-if="currentTab === 'teams'" />
     </div>
   </div>
 </template>
@@ -35,8 +34,7 @@ import TeamStatsTable from './TeamStatsTable.vue'
 
 const tabs = [
   { key: 'players', label: 'Игроки' },
-  { key: 'resources', label: 'Ресурсы' },
-  { key: 'teams', label: 'Команды' }
+  { key: 'resources', label: 'Ресурсы' }
 ]
 
 const currentTab = ref('players')

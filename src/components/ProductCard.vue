@@ -34,7 +34,7 @@
       </li>
     </ul>
     <!-- Картинка -->
-    <div class="mb-4">
+    <div class="mb-4 pb-8">
   <img
     :src="product.image"
     alt="product image"

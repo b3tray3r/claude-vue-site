@@ -229,7 +229,7 @@ export const SHOP_DATA = {
             icon: '⏳',
             description: 'Приоритетная очередь на сервере',
             features: ['Доступ на сервер в час пик, без очереди'],
-            duration: '7 дней',
+            duration: '14 дней',
             class: 'queue_7 popular',
             image: 'https://i.imgur.com/1AYPipy.png'
         },

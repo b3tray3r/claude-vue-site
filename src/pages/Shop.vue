@@ -4,13 +4,13 @@
     <section class="shop-categories">
       <div class="container">
         <div class="categories-nav">
-          
+           <!-- @click="switchCategory(categoryKey)" -->
           <button
             v-for="(categoryName, categoryKey) in categories"
             :key="categoryKey"
             class="category-btn"
             :class="{ active: currentCategory === categoryKey }"
-            @click="switchCategory(categoryKey)"
+           
           >
             <span class="category-icon">{{ getCategoryIcon(categoryKey) }}</span>
             {{ categoryName }}

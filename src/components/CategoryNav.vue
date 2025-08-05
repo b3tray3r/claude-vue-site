@@ -4,7 +4,7 @@
     <button
       v-for="(name, key) in categories"
       :key="key"
-      
+      @click="$emit('select', key)"
       :class="[
         'px-6 py-2 rounded-md font-semibold flex items-center gap-2 transition-all duration-300',
         currentCategory === key

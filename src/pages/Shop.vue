@@ -4,14 +4,9 @@
     <section class="shop-categories">
       <div class="container">
         <div class="categories-nav">
-           <!-- @click="switchCategory(categoryKey)" -->
-          <button
-            v-for="(categoryName, categoryKey) in categories"
-            :key="categoryKey"
-            class="category-btn"
-            :class="{ active: currentCategory === categoryKey }"
-           
-          >
+          <!-- @click="switchCategory(categoryKey)" -->
+          <button v-for="(categoryName, categoryKey) in categories" :key="categoryKey" class="category-btn"
+            @click="stopCategory(categoryKey)" :class="{ active: currentCategory === categoryKey }">
             <span class="category-icon">{{ getCategoryIcon(categoryKey) }}</span>
             {{ categoryName }}
           </button>
@@ -22,32 +17,20 @@
     <!-- Товары -->
     <section class="shop-products">
       <div class="container">
-        <div 
-          class="products-grid" 
-          :style="{ 
-            opacity: isTransitioning ? 0 : 1,
-            transform: isTransitioning ? 'translateY(20px)' : 'translateY(0)',
-            pointerEvents: isTransitioning ? 'none' : 'auto'
-          }"
-        >
-          <ProductCard
-            v-for="(product, index) in currentProducts"
-            :key="product.id"
-            :product="product"
-            :index="index"
-            @buy="openPurchaseModal"
-          />
+        <div class="products-grid" :style="{
+          opacity: isTransitioning ? 0 : 1,
+          transform: isTransitioning ? 'translateY(20px)' : 'translateY(0)',
+          pointerEvents: isTransitioning ? 'none' : 'auto'
+        }">
+          <ProductCard v-for="(product, index) in currentProducts" :key="product.id" :product="product" :index="index"
+            @buy="openPurchaseModal" />
         </div>
       </div>
     </section>
 
     <!-- Модальное окно покупки -->
-    <PurchaseModal
-      v-if="showModal"
-      :product="selectedProduct"
-      @close="closePurchaseModal"
-      @purchase="processPurchase"
-    />
+    <PurchaseModal v-if="showModal" :product="selectedProduct" @close="closePurchaseModal"
+      @purchase="processPurchase" />
   </div>
 </template>
 
@@ -56,6 +39,8 @@ import ProductCard from '../components/ProductCard.vue'
 import PurchaseModal from '../components/PurchaseModal.vue'
 import CategoryNav from '../components/CategoryNav.vue'
 import { SHOP_CONFIG, SHOP_DATA } from '../utils/shopData.js'
+import Swal from 'sweetalert2'
+
 
 export default {
   name: 'Shop',
@@ -88,17 +73,37 @@ export default {
       }
       return icons[categoryKey] || '🎁'
     },
-    
+
     switchCategory(category) {
       if (category === this.currentCategory || this.isTransitioning) return
 
       this.isTransitioning = true
-      
+
       setTimeout(() => {
         this.currentCategory = category
         this.isTransitioning = false
       }, SHOP_CONFIG.ANIMATION.TRANSITION_DURATION)
     },
+    stopCategory(category) {
+      // если категория 'privilege' — переключаемся
+      if (category === 'privilege') {
+        this.switchCategory(category)
+        return
+      }
+
+      // иначе показываем SweetAlert
+      Swal.fire({
+        icon: 'info',
+        title: 'В разработке',
+        text: `Категория "${this.categories[category]}" пока в разработке.`,
+        confirmButtonText: 'Ок',
+        confirmButtonColor: '#ff6b35',
+        background: '#1a1a1a',
+        color: '#fff',
+        scrollbarPadding: false,
+      })
+    }
+    ,
 
     openPurchaseModal(product) {
       this.selectedProduct = product
@@ -147,6 +152,9 @@ export default {
     }
   }
 }
+
+
+
 </script>
 
 <style scoped>

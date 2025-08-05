@@ -61,7 +61,7 @@
           </button>
 
           <button v-else @click="logout" class="btn-primary flex items-center space-x-2">
-            <img src="https://api.iconify.design/material-symbols:door-back-outline-rounded.svg?color=%23ffffff" alt="Logout" class="w-5 h-5" />
+            <img src="https://api.iconify.design/cuida:logout-outline.svg?color=%23ffffff" alt="Logout" class="w-5 h-5" />
             <span>Выйти</span>
           </button>
 

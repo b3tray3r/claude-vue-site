@@ -23,7 +23,11 @@ export default {
       fontFamily: {
         sans: ['Segoe UI', 'Tahoma', 'Geneva', 'Verdana', 'sans-serif'],
         condensed: ['"Roboto Condensed"', 'sans-serif'],
-        source: ['"Source Sans 3"', 'sans-serif']
+        source: ['"Source Sans 3"', 'sans-serif'],
+        exo2: ['"Exo 2"', 'sans-serif'],
+        bungee: ['"Bungee"', 'cursive'],
+        audiowide: ['"Audiowide"', 'cursive'],
+        orbitron: ['"Orbitron"', 'sans-serif']
       },
       animation: {
         'neon-flow': 'neonFlow 6s linear infinite',

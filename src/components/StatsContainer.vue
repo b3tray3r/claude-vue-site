@@ -14,20 +14,32 @@
         <span class="text-gray-400 text-sm">EU West</span>
       </div>
 
-      <div class="flex justify-between items-center mb-4">
-        <span class="text-base text-gray-300">👥 Игроков онлайн</span>
+      <div class="flex justify-between items-center mb-2">
+        <div class="flex items-center gap-2 text-lg text-gray-300">
+          <img src="https://api.iconify.design/cuida:user-outline.svg?color=%23969696" class="w-7 h-7  mr-2" />
+          <span>Игроков онлайн</span>
+        </div>
         <span class="font-semibold">{{ players }}/{{ maxPlayers }}</span>
       </div>
-      <div class="flex justify-between items-center mb-4">
-        <span class="text-base text-gray-300">👥 Заходят </span>
+
+      <div class="flex justify-between items-center mb-2">
+        <div class="flex items-center gap-2 text-lg text-gray-300">
+          <img src="https://api.iconify.design/cuida:user-add-outline.svg?color=%23969696" class="w-8 h-8  mr-2" />
+          <span>Заходят</span>
+        </div>
         <span class="font-semibold">{{ playersJoining }}</span>
       </div>
-      <div class="flex justify-between items-center mb-4">
-        <span class="text-base text-gray-300">👥 В очереди</span>
+
+      <div class="flex justify-between items-center mb-2">
+        <div class="flex items-center gap-2 text-lg text-gray-300">
+          <img src="https://api.iconify.design/cuida:users-outline.svg?color=%23969696" class="w-8 h-8 mr-2" />
+          <span>В очереди</span>
+        </div>
         <span class="font-semibold">{{ playersQueued }}</span>
       </div>
 
-      <div class="mb-4">
+
+      <div class="mb-4 ">
         <div class="h-2 bg-white/20 rounded-full overflow-hidden mb-2">
           <div
             class="h-full bg-gradient-to-r from-secondary via-accent to-pink-500 rounded-full transition-all duration-1000"
@@ -51,7 +63,7 @@
         <span class="status-live">Live</span>
       </div>
 
-      <div class="text-center mb-6">
+      <div class="text-center mb-10">
         <strong class="block text-lg mb-1">Konura Community</strong>
         <span class="text-gray-400 text-base">Официальный хаб сообщества</span>
       </div>
@@ -102,17 +114,12 @@
 
     <!-- Scroll Down Arrow (по центру и исчезает при скролле) -->
     <!-- Scroll Down Arrow (по центру и исчезает при скролле) -->
-<div
-  ref="scrollArrow"
-  class="fixed top-1/2 right-6 transform -translate-y-1/2 z-50 transition-all duration-500 pointer-events-none"
-  :class="{ 'opacity-0 translate-y-10': hideArrow }"
->
-  <img
-    src="https://api.iconify.design/cuida:arrow-down-circle-outline.svg?color=%23000000"
-    alt="Scroll down"
-    class="w-20 h-20 animate-bounce opacity-50"
-  />
-</div>
+    <div ref="scrollArrow"
+      class="fixed top-1/2 right-6 transform -translate-y-1/2 z-50 transition-all duration-500 pointer-events-none"
+      :class="{ 'opacity-0 translate-y-10': hideArrow }">
+      <img src="https://api.iconify.design/cuida:arrow-down-circle-outline.svg?color=%23000000" alt="Scroll down"
+        class="w-20 h-20 animate-bounce opacity-50" />
+    </div>
 
   </div>
 </template>

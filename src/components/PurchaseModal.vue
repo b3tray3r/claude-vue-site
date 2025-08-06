@@ -93,7 +93,7 @@
             <span class="text-xs">Покупка...</span>
           </template>
           <template v-else>
-            <span class="text-lg">🛒</span>
+            <span class="text-lg"></span>
             <span class="text-xs">Купить сейчас</span>
           </template>
         </button>

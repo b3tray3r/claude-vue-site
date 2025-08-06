@@ -5,11 +5,20 @@
       <div class="container">
         <div class="categories-nav">
           <!-- @click="switchCategory(categoryKey)" -->
-          <button v-for="(categoryName, categoryKey) in categories" :key="categoryKey" class="category-btn"
-            @click="stopCategory(categoryKey)" :class="{ active: currentCategory === categoryKey }">
-            <span class="category-icon">{{ getCategoryIcon(categoryKey) }}</span>
-            {{ categoryName }}
-          </button>
+          <button
+  v-for="(categoryName, categoryKey) in categories"
+  :key="categoryKey"
+  class="category-btn"
+  @click="stopCategory(categoryKey)"
+  :class="{
+    active: currentCategory === categoryKey,
+    'under-construction': categoryKey !== 'privilege'
+  }"
+>
+  <span class="category-icon">{{ getCategoryIcon(categoryKey) }}</span>
+  {{ categoryName }}
+</button>
+
         </div>
       </div>
     </section>
@@ -66,12 +75,12 @@ export default {
   methods: {
     getCategoryIcon(categoryKey) {
       const icons = {
-        subscriptions: '⭐',
-        items: '🔧',
-        access: '🔑',
-        kits: '📦'
+        subscriptions: '',
+        items: '',
+        access: '',
+        kits: ''
       }
-      return icons[categoryKey] || '🎁'
+      return icons[categoryKey] || ''
     },
 
     switchCategory(category) {
@@ -231,6 +240,31 @@ export default {
   margin-top: 1.5rem;
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
+.category-btn.under-construction {
+  position: relative;
+  overflow: hidden;
+}
+
+.category-btn.under-construction::before {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 15px;
+  background: repeating-linear-gradient(
+    45deg,
+    #ff6b35,
+    #ff6b35 10px,
+    #000 10px,
+    #000 20px
+  );
+  top: 40%;
+  left: -50%;
+  transform: rotate(-15deg);
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
 
 /* Адаптивность */
 @media (max-width: 768px) {

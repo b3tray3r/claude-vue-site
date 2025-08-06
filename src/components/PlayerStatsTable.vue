@@ -88,23 +88,26 @@
 
               <!-- Убийства -->
               <td class="px-2 py-3 text-center">
-                <div class="flex items-center justify-center gap-2">
-                  <img src="https://api.iconify.design/mdi:tally-mark-5.svg?color=%238b5cf6" class="w-8 h-8" alt="Т" />
+                <div class="flex items-center justify-right gap-2">
+                  <img src="https://i.postimg.cc/HkS6WTLt/Assault-Rifle-icon.png" class="w-16 h-16 " alt="Т" />
                   <span class="font-semibold text-violet-400">{{ player.kills || 0 }}</span>
                 </div>
               </td>
               
               <!-- Смерти -->
               <td class="px-2 py-3 text-center">
-                <div class="flex items-center justify-center gap-2">
-                  <img src="https://api.iconify.design/gravity-ui:skull.svg?color=%2364748b" class="w-8 h-8" alt="С" />
+                <div class="flex items-center justify-right gap-2 ">
+                <div class="rounded-xl bg-red-600 p-1">
+                  <img src="https://api.iconify.design/mdi:skull.svg?color=%23ffffff" class="w-8 h-8 " alt="С" />
+                  </div>
                   <span class="font-semibold text-slate-400">{{ player.deaths || 0 }}</span>
+                  
                 </div>
               </td>
               
               <!-- KDA -->
               <td class="px-2 py-3 text-center">
-                <div class="flex items-center justify-center gap-2">
+                <div class="flex items-center justify-right gap-2">
                   <img src="https://api.iconify.design/pajamas:status-health.svg?color=%2310b981" class="w-8 h-8" alt="KDA" />
                   <span class="font-semibold text-emerald-400">{{ calculateKDA(player.kills, player.deaths) }}</span>
                 </div>
@@ -112,15 +115,15 @@
               
               <!-- Выстрелы -->
               <td class="px-2 py-3 text-center">
-                <div class="flex items-center justify-center gap-2">
-                  <img src="https://api.iconify.design/game-icons:silver-bullet.svg?color=%23f59e0b" class="w-8 h-8" alt="В" />
+                <div class="flex items-center justify-right gap-2">
+                  <img src="https://i.postimg.cc/zXrt0dMT/5-56-Rifle-Ammo-icon.png" class="w-12 h-12" alt="В" />
                   <span class="font-semibold text-amber-400">{{ player.shots || 0 }}</span>
                 </div>
               </td>
               
               <!-- Попадания -->
               <td class="px-2 py-3 text-center">
-                <div class="flex items-center justify-center gap-2">
+                <div class="flex items-center justify-right gap-2">
                   <img src="https://previews.dropbox.com/p/thumb/ACtD5NALi8ZPAEYZa_v0jlmuRRqNfGLvPT4FflDkPOMjcjib6PaHjnrRuO-6iq4L77sa4ltlQ11YPkBu9J2Qt9l_77_LRVhs6-jxz2ksacFCPB3JaU1ukhGzv3ryXQc8epmWUuT6-KvWE7JDdxnhVdpDdQKEH-rxyMJHYYKmegFitirJLNGNcHvjNu9vwJWKaqg61A8ID2Wftck3n2R2m9bfC38s6WAr1_MLveZcNrdMAFqC-sXBEwxOe6T2B71s78BKzonV6GxttTL-S-W16ip3ZleKVWZe93rh-xSfiEmTK1RJ4UrTWBYW8XZS6Ck6QmE/p.png" class="w-8 h-8" alt="П" />
                   <span class="font-semibold text-orange-400">{{ player.headshots || 0 }}</span>
                 </div>
@@ -128,7 +131,7 @@
               
               <!-- Точность -->
               <td class="px-2 py-3 text-center">
-                <div class="flex items-center justify-center gap-2">
+                <div class="flex items-center justify-right gap-2">
                   <img src="https://api.iconify.design/ri:crosshair-2-line.svg?color=%23ef4444" class="w-8 h-8" alt="К" />
                   <span class="font-semibold text-red-400">{{ calculateAccuracy(player.shots, player.headshots) }}%</span>
                 </div>

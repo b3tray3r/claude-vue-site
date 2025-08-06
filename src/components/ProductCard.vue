@@ -35,12 +35,9 @@
     </ul>
     <!-- Картинка -->
     <div class="mb-4 pb-8">
-  <img
-    :src="product.image"
-    alt="product image"
-    class="w-full h-full object-cover rounded-lg  transition-transform duration-300 transform group-hover:scale-105 group-hover:rotate-2"
-  />
-</div>
+      <img :src="product.image" alt="product image"
+        class="w-60 h-auto object-cover rounded-lg  transition-transform duration-300 transform group-hover:scale-105 group-hover:rotate-2" />
+    </div>
 
 
     <!-- Кнопка -->
@@ -112,10 +109,10 @@ export default {
     },
     async handleBuy() {
       const steam = useSteam()
-      
+
       // Обновляем состояние авторизации перед покупкой
       await steam.refreshAuth()
-      
+
       if (!steam.isAuthenticated.value) {
         await Swal.fire({
           imageUrl: "https://konurarust.com/assets/logo-3nGJ9XyH.png",
@@ -136,7 +133,7 @@ export default {
         })
         return
       }
-      
+
       this.$emit('buy', this.product)
     }
   }

@@ -52,11 +52,10 @@
 
       <!-- Bottom Footer -->
       <div class="border-t border-white/10 pt-4"> <!-- padding сверху уменьшен -->
-        <div class="flex flex-col md:flex-row justify-between items-center gap-2">
+        <div class="flex flex-row md:flex-row justify-between items-center gap-2">
           <p class="text-gray-400 text-xs"> <!-- размер шрифта уменьшен -->
-            &copy; 2025 Konura Rust. Все права защищены.
+            &copy; 2025 Konura Rust. Все права защищены. <br>ИНН 770501174354</br>
           </p>
-
           <div class="flex flex-wrap gap-2 text-xs"> <!-- изменено на flex-wrap и gap для адаптивности -->
             <button @click="showUserAgreement" class="text-gray-400 hover:text-primary transition-colors cursor-pointer">
               Пользовательское соглашение

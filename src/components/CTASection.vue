@@ -47,9 +47,9 @@ function showServerInfo() {
     title: '🎮 Подключение к серверу',
     html: `
       <div style="text-align: left; font-size: 16px;">
-        <p><strong>IP:</strong> 203.16.163.232:28834</p>
-        <p><strong>Игроков онлайн:</strong> 70/150</p>
-        <p><strong>Карта:</strong> Barren, размер 3500</p>
+        <p><strong>IP:</strong> 80.242.59.103:35016</p>
+        <p><strong>Игроков онлайн:</strong> 70/400</p>
+        <p><strong>Карта:</strong> Barren, размер 4500</p>
         <p><strong>Wipe:</strong> каждый четверг в 15:00</p>
         <p><strong>Особенности:</strong> PvP, кланы, ивенты, магазины</p>
       </div>

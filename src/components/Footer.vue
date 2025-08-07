@@ -57,25 +57,11 @@
             &copy; 2025 Konura Rust. Все права защищены. <br>ИНН 770501174354</br>
           </p>
           <div class="flex flex-wrap gap-2 text-xs"> <!-- изменено на flex-wrap и gap для адаптивности -->
-            <button @click="showUserAgreement" class="text-gray-400 hover:text-primary transition-colors cursor-pointer">
+            <router-link to="/rules" class="text-gray-400 hover:text-primary transition-colors cursor-pointer scroll-">
               Пользовательское соглашение
-            </button>
-            <span class="text-gray-600">|</span>
-            <button @click="showPrivacyPolicy" class="text-gray-400 hover:text-primary transition-colors cursor-pointer">
-              Политика конфиденциальности
-            </button>
-            <span class="text-gray-600">|</span>
-            <button @click="showServerRules" class="text-gray-400 hover:text-primary transition-colors cursor-pointer">
-              Правила сервера
-            </button>
-            <span class="text-gray-600">|</span>
-            <button @click="showAntiCheatPolicy" class="text-gray-400 hover:text-primary transition-colors cursor-pointer">
-              Проверка на читы
-            </button>
-            <span class="text-gray-600">|</span>
-            <button @click="showDonationTerms" class="text-gray-400 hover:text-primary transition-colors cursor-pointer">
-              Условия доната
-            </button>
+            </router-link>
+
+
           </div>
         </div>
       </div>
@@ -113,7 +99,7 @@ const supportLinks = [
   { name: 'Помощь', url: '#help' },
   { name: 'Сообщить об ошибке', url: '#bugs' },
   { name: 'Администратор', url: '#admin' },
-  { name: 'Апелляция', url: '#appeals' }
+  { name: 'Апелляция', url: '#appeals' },
 ]
 
 const userAgreementText = `

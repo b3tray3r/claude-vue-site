@@ -6,6 +6,7 @@ import Home from './pages/Home.vue'
 import Shop from './pages/Shop.vue'
 import Stats from './pages/Stats.vue'
 import Contacts from './pages/Contacts.vue'
+import Rules from './pages/Rules.vue'
 
 const routes = [
   {
@@ -15,7 +16,8 @@ const routes = [
       { path: '', component: Home },
       { path: 'shop', component: Shop },
       { path: 'stats', component: Stats },
-      { path: 'contacts', component: Contacts }
+      { path: 'contacts', component: Contacts },
+      { path: 'rules', component: Rules }
     ]
   },
 ]

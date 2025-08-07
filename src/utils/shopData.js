@@ -216,7 +216,7 @@ export const SHOP_DATA = {
             name: 'Приоритетная очередь',
             price: 299,
             description: 'Приоритетная очередь на сервере',
-            features: ['Доступ на сервер в час пик, без очереди'],
+            features: ['Быстрый доступ на сервер в час пик'],
             duration: '3 дня',
             class: 'queue_3',
             image: 'https://i.imgur.com/XwCH9ri.png'
@@ -226,7 +226,7 @@ export const SHOP_DATA = {
             name: 'Приоритетная очередь',
             price: 499,
             description: 'Приоритетная очередь на сервере',
-            features: ['Доступ на сервер в час пик, без очереди'],
+            features: ['Быстрый доступ на сервер в час пик'],
             duration: '14 дней',
             class: 'queue_7 popular',
             image: 'https://i.imgur.com/1AYPipy.png'
@@ -236,7 +236,7 @@ export const SHOP_DATA = {
             name: 'Приоритетная очередь',
             price: 999,
             description: 'Приоритетная очередь на сервере',
-            features: ['Доступ на сервер в час пик, без очереди'],
+            features: ['Быстрый доступ на сервер в час пик'],
             duration: '30 дней',
             class: 'queue_30',
             image: 'https://i.imgur.com/BWRvU39.png'

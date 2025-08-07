@@ -13,26 +13,16 @@
           <div class="flex justify-center md:justify-start space-x-4">
             <a v-for="social in socialLinks" :key="social.name" :href="social.url" target="_blank" rel="noopener" class="w-11 h-11 bg-white/10 rounded-full flex items-center justify-center 
                       hover:bg-primary hover:-translate-y-1 transition-all duration-300">
-              <img :src="social.icon" :alt="social.name" class="w-6 h-6" />
+              <img :src="social.icon" :alt="social.name" class="w-auto h-6" />
             </a>
           </div>
         </div>
 
         <!-- Quick Links -->
         <div class="text-center md:text-left">
-          <h3 class="text-lg font-bold mb-4">Быстрые ссылки</h3> <!-- размер и margin уменьшены -->
-          <ul class="space-y-2"> <!-- уменьшен вертикальный отступ -->
-            <li v-for="link in quickLinks" :key="link.name">
-              <router-link v-if="link.internal" :to="link.url"
-                class="text-gray-400 hover:text-primary transition-colors relative group">
-                {{ link.name }}
-              </router-link>
-
-              <a v-else :href="link.url" class="text-gray-400 hover:text-primary transition-colors relative group">
-                {{ link.name }}
-              </a>
-            </li>
-
+          <h3 class="text-lg font-bold mb-4"></h3> <!-- ТУТ БЫЛИ БЫСТРЫЕ ССЫЛКИ -->
+          <ul class="space-y-2">
+            
           </ul>
         </div>
 
@@ -51,17 +41,15 @@
       </div>
 
       <!-- Bottom Footer -->
-      <div class="border-t border-white/10 pt-4"> <!-- padding сверху уменьшен -->
+      <div class="border-t border-white/10 pt-6"> <!-- padding сверху уменьшен -->
         <div class="flex flex-row md:flex-row justify-between items-center gap-2">
           <p class="text-gray-400 text-xs"> <!-- размер шрифта уменьшен -->
-            &copy; 2025 Konura Rust. Все права защищены. <br>ИНН 770501174354</br>
+            ИНН 770501174354 <br>&copy; 2025 Konura Rust. Все права защищены.</br>
           </p>
           <div class="flex flex-wrap gap-2 text-xs"> <!-- изменено на flex-wrap и gap для адаптивности -->
             <router-link to="/rules" class="text-gray-400 hover:text-primary transition-colors cursor-pointer scroll-">
               Пользовательское соглашение
             </router-link>
-
-
           </div>
         </div>
       </div>
@@ -97,9 +85,7 @@ const quickLinks = [
 
 const supportLinks = [
   { name: 'Помощь', url: '#help' },
-  { name: 'Сообщить об ошибке', url: '#bugs' },
-  { name: 'Администратор', url: '#admin' },
-  { name: 'Апелляция', url: '#appeals' },
+  { name: 'Сообщить об ошибке', url: '#bugs' }
 ]
 
 const userAgreementText = `

@@ -20,7 +20,7 @@
     </div>
 
     <!-- Описание -->
-    <p class="text-white/80 text-sm leading-relaxed mb-4">{{ product.description }}</p>
+
 
     <!-- Срок действия -->
     <div v-if="product.duration" class="text-center text-sm italic text-white/60 mb-4">
@@ -28,13 +28,13 @@
     </div>
 
     <!-- Особенности -->
-    <ul class="mb-6 space-y-2">
+    <ul class="mb-6 space-y-2 text-center flex flex-col items-center">
       <li v-for="feature in product.features" :key="feature" class="flex items-center gap-2 text-white/80 text-sm">
         <span class="text-green-400 font-bold">✓</span> {{ feature }}
       </li>
     </ul>
     <!-- Картинка -->
-    <div class="mb-4 pb-8">
+    <div class="mb-4 pb-8 flex justify-center">
       <img :src="product.image" alt="product image"
         class="w-60 h-auto object-cover rounded-lg  transition-transform duration-300 transform group-hover:scale-105 group-hover:rotate-2" />
     </div>

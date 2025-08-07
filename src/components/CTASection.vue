@@ -20,12 +20,12 @@
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <button @click="showServerInfo"
             class="btn-primary flex items-center justify-center space-x-2 text-lg px-8 py-4">
-            <span>🚀</span>
+            <span></span>
             <span>Подключиться</span>
           </button>
 
           <router-link to="/shop" class="btn-secondary flex items-center justify-center space-x-2 text-lg px-8 py-4">
-            <span>🛒</span>
+            <img src="https://api.iconify.design/material-symbols:shopping-cart.svg?color=%23ffffff" alt="Shop Icon" class="w-6 h-6" />
             <span>Магазин</span>
           </router-link>
 

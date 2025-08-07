@@ -26,7 +26,7 @@
           </div>
         </div>
 
-        <div class="hidden lg:block animate-fade-up z-10 py-14">
+        <div class="hidden lg:block animate-fade-up z-10 py-14 opacity-60">
           <img src="https://i.imgur.com/6cjevNJ.png" alt="Контактная информация"
             class="w-[450px] h-auto rounded-2xl shadow-xl object-cover" />
         </div>

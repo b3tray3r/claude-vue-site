@@ -16,8 +16,8 @@
 
       <div class="flex justify-between items-center mb-2">
         <div class="flex items-center gap-2 text-lg text-gray-300">
-          <img src="https://api.iconify.design/cuida:user-outline.svg?color=%23969696" class="w-7 h-7  mr-2" />
-          <span>Игроков онлайн</span>
+          <img src="https://api.iconify.design/cuida:user-outline.svg?color=%23969696" class="w-7 h-7  mr-3" />
+          <span>Онлайн</span>
         </div>
         <span class="font-semibold">{{ players }}/{{ maxPlayers }}</span>
       </div>
@@ -33,7 +33,7 @@
       <div class="flex justify-between items-center mb-2">
         <div class="flex items-center gap-2 text-lg text-gray-300">
           <img src="https://api.iconify.design/cuida:users-outline.svg?color=%23969696" class="w-8 h-8 mr-2" />
-          <span>В очереди</span>
+          <span>Очередь</span>
         </div>
         <span class="font-semibold">{{ playersQueued }}</span>
       </div>
@@ -90,7 +90,7 @@
       <div class="neon-line" style="animation-delay: 2.6s;"></div>
 
       <div class="mb-6 border-b border-white/1">
-        <h3 class="text-2xl font-bold py-4">Топы сервера</h3>
+        <h3 class="text-2xl font-bold py-4">Konura Top List</h3>
       </div>
 
       <div class="space-y-4">

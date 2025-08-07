@@ -217,7 +217,7 @@ export default {
 }
 
 .category-btn.active {
-  background: linear-gradient(135deg, #ff6b35, #ff8c5a);
+  background:  #ff6b35;
   border-color: #ff6b35;
   box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
   transform: translateY(-2px);
@@ -262,7 +262,7 @@ export default {
   transform: rotate(-15deg);
   z-index: 1;
   pointer-events: none;
-  opacity: 0.5;
+  opacity: 0.4;
 }
 
 

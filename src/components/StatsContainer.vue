@@ -130,7 +130,7 @@ import { useStats } from '../composables/useStats'
 const { discordStats, joinDiscord, openStats, openShop } = useStats()
 
 const players = ref(0)
-const maxPlayers = ref(40)
+const maxPlayers = ref(400)
 const status = ref('offline')
 const lastWipe = ref(null)
 const metricsWipeDate = ref('--')
@@ -191,7 +191,7 @@ async function fetchRustServerInfo() {
     const data = await res.json()
 
     players.value = data.players ?? 0
-    maxPlayers.value = data.maxPlayers ?? 40
+    maxPlayers.value = data.maxPlayers ?? 400
     status.value = data.status ?? 'offline'
     lastWipe.value = data.lastWipe ?? null
     playersQueued.value = data.queued ?? 0

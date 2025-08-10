@@ -22,7 +22,7 @@ export const products = {
       description: 'Быстрый доступ на сервер в час пик',
       rarity: 'common',
       popular: false,
-      image: 'src/assets/lvl1.png'
+      image: './src/assets/lvl1.png'
     },
     {
       id: 'premium-1',
@@ -33,7 +33,7 @@ export const products = {
       description: 'Быстрый доступ на сервер в час пик',
       rarity: 'rare',
       popular: true,
-      image: 'src/assets/lvl2.png'
+      image: '../src/assets/lvl2.png'
     },
     {
       id: 'ultimate-1',

@@ -44,7 +44,7 @@ export const products = {
       description: 'Быстрый доступ на сервер в час пик',
       rarity: 'legendary',
       popular: false,
-      image: 'src/assets/lvl3.png'
+      image: './assets/lvl3.png'
     }
   ],
   comps: [
@@ -55,7 +55,7 @@ export const products = {
     quantity: "1 шт",
     rarity: "common",
     popular: true,
-    image: "src/assets/comps/cctv.camera.png"
+    image: "../assets/comps/cctv.camera.png"
   },
   {
     id: "gears",
@@ -64,7 +64,7 @@ export const products = {
     quantity: "1 шт",
     rarity: "common",
     popular: true,
-    image: "src/assets/comps/gears.png"
+    image: "assets/comps/gears.png"
   },
   {
     id: "metal-blade",

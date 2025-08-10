@@ -1,6 +1,5 @@
 <template>
   <div class="flex justify-center flex-wrap gap-4 py-6">
-    <!-- @click="$emit('select', key)" -->
     <button
       v-for="(name, key) in categories"
       :key="key"
@@ -24,12 +23,10 @@ defineEmits(['select'])
 
 function getIcon(key) {
   return {
-    privilege: '👑',
-    subscriptions: '⭐',
-    items: '🔧',
-    access: '🔑',
-    kits: '📦'
-    
-  }[key] || '🎁'
+    privileges: '',
+    weapons: '',
+    resources: '',
+    explosives: ''
+  }[key] || ''
 }
 </script>

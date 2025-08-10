@@ -228,7 +228,7 @@ async function getTopHeadshots() {
 
 async function fetchBattleMetrics() {
   try {
-    const res = await fetch('https://api.battlemetrics.com/servers/34847101')
+    const res = await fetch('https://api.battlemetrics.com/servers/35147063')
     const data = await res.json()
 
     const wipeRaw = data.data.attributes.details.rust_last_wipe

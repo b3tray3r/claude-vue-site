@@ -3,7 +3,7 @@ import axios from 'axios'
 
 const CONFIG = {
   APIS: {
-    BATTLEMETRICS: 'https://api.battlemetrics.com/servers/34847101',
+    BATTLEMETRICS: 'https://api.battlemetrics.com/servers/35147063',
     DISCORD: 'https://ktor-server-u2py.onrender.com/discord',
     STEAM_USER: 'https://ktor-server-u2py.onrender.com/steam/userinfo',
     YOUTUBE: 'https://www.googleapis.com/youtube/v3/videos'

@@ -116,7 +116,7 @@ function startWipeCountdown(wipeDateStr) {
 
 async function getMapIconsUrl() {
   try {
-    const res = await fetch('https://api.battlemetrics.com/servers/34847101')
+    const res = await fetch('https://api.battlemetrics.com/servers/35147063')
     const data = await res.json()
 
     const thumbnailUrl = data?.data?.attributes?.details?.rust_maps?.thumbnailUrl

@@ -3,7 +3,7 @@
     class="fixed top-0 w-full z-50 glass border-b border-white/10 transition-all duration-300"
     :style="{ backgroundColor: `rgba(0, 0, 0, ${navOpacity})` }"
   >
-    <div class="max-w-6xl mx-auto px-6 py-4">
+    <div class="max-w-6xl mx-auto  py-4">
       <div @click="handleNavClick(link, $event)" class="flex items-center justify-between">
         <!-- Logo -->
         <router-link to="/" @click.prevent="handleLogoClick" class="flex items-center hover:opacity-80 transition-all">
@@ -32,19 +32,19 @@
 
         <!-- User Info & Actions -->
         <div class="flex items-center space-x-4">
-          <div v-if="steamUser" class="flex items-center space-x-3">
+          <div v-if="testSteamUser || steamUser" class="flex items-center space-x-3">
             <img
-              v-if="steamUser.avatar"
-              :src="steamUser.avatar"
-              :alt="steamUser.name"
+              v-if="(testSteamUser && testSteamUser.avatar) || (steamUser && steamUser.avatar)"
+              :src="(testSteamUser && testSteamUser.avatar) || (steamUser && steamUser.avatar)"
+              :alt="(testSteamUser && testSteamUser.name) || (steamUser && steamUser.name)"
               class="w-12 h-12 rounded-full border-2 border-primary animate-pulse-glow"
             />
             
             <!-- Coin Balance -->
             <div class="flex items-center bg-black/30 backdrop-blur-sm border border-orange-500/30 rounded-lg px-3 py-2">
               <div class="flex items-center space-x-2 mr-3">
-                <div class="w-6 h-6 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center">
-                  <span class="text-xs font-bold text-black">KC</span>
+                <div class="w-6 h-6 border-2 border-orange-500 rounded-full flex items-center justify-center">
+                  <img src="https://api.iconify.design/streamline:bone-solid.svg?color=%23ff7331" alt="Coin" class="w-4 h-4" />
                 </div>
                 <span class="text-white font-semibold">{{ userCoins.toLocaleString() }}</span>
               </div>
@@ -63,7 +63,7 @@
           </a>
 
           <button
-            v-if="!isAuthenticated"
+            v-if="!testIsAuthenticated && !isAuthenticated"
             @click="login"
             class="btn-steam flex items-center space-x-2"
           >
@@ -73,6 +73,11 @@
               class="w-5 h-5"
             />
             <span>Steam Login</span>
+          </button>
+
+          <button v-else-if="testIsAuthenticated" @click="testLogout" class="btn-primary flex items-center space-x-2">
+            <img src="https://api.iconify.design/cuida:logout-outline.svg?color=%23ffffff" alt="Logout" class="w-5 h-5" />
+            <span>Выйти</span>
           </button>
 
           <button v-else @click="logout" class="btn-primary flex items-center space-x-2">
@@ -102,10 +107,10 @@
       <div v-if="mobileMenuOpen" class="md:hidden mt-4 pt-4 border-t border-white/10">
         <div class="flex flex-col space-y-4">
           <!-- Mobile Coin Balance -->
-          <div v-if="steamUser" class="flex items-center justify-between bg-black/30 backdrop-blur-sm border border-orange-500/30 rounded-lg px-3 py-2">
+          <div v-if="testSteamUser || steamUser" class="flex items-center justify-between bg-black/30 backdrop-blur-sm border border-orange-500/30 rounded-lg px-3 py-2">
             <div class="flex items-center space-x-2">
-              <div class="w-6 h-6 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center">
-                <span class="text-xs font-bold text-black">KC</span>
+              <div class="w-6 h-6 border-orange-500 border-2 rounded-full flex items-center justify-center">
+               <img src="https://api.iconify.design/streamline:bone-solid.svg?color=%23ff7331" alt="Coin" class="w-4 h-4" />
               </div>
               <span class="text-white font-semibold">{{ userCoins.toLocaleString() }}</span>
             </div>
@@ -147,7 +152,26 @@ const { user: steamUser, isAuthenticated, login, logout } = useSteam()
 
 const navOpacity = ref(0.6)
 const mobileMenuOpen = ref(false)
-const userCoins = ref(15420) // Пример баланса пользователя
+const userCoins = ref(0) // Пример баланса пользователя
+
+// Тестовые данные для Steam пользователя
+const testSteamUser = ref(null)
+const testIsAuthenticated = ref(false)
+
+// Функция тестового логина
+const testLogin = () => {
+  testIsAuthenticated.value = true
+  testSteamUser.value = {
+    id: '76561198123456789',
+    name: 'TestPlayer2024',
+    avatar: 'https://avatars.steamstatic.com/a6e23d6de8e27e3c6c3b21f4e3c1e5d3f6a3b4c5_full.jpg'
+  }
+}
+
+const testLogout = () => {
+  testIsAuthenticated.value = false
+  testSteamUser.value = null
+}
 
 const getLinkClasses = (href) => {
   const isActive = route.path === href
@@ -278,70 +302,80 @@ function showServerInfo() {
 }
 
 async function showTopUpMenu() {
-  const topUpHTML = [
-    '<div style="text-align: left;">',
-    '  <div style="margin-bottom: 20px;">',
-    '    <label style="display: block; margin-bottom: 8px; font-weight: bold; color: #f97316;">Сумма к оплате (₽):</label>',
-    '    <input id="amount" type="number" min="1" max="50000" value="100"',
-    '           style="width: 100%; padding: 12px; border: 2px solid #f97316; border-radius: 8px;',
-    '                  background: rgba(0,0,0,0.3); color: white; font-size: 16px;"',
-    '           placeholder="Введите сумму в рублях" oninput="updateCoins()">',
-    '  </div>',
-    '  <div style="margin-bottom: 20px; padding: 15px; background: rgba(249, 115, 22, 0.1);',
-    '              border: 1px solid #f97316; border-radius: 8px;">',
-    '    <div style="display: flex; align-items: center; justify-content: center;">',
-    '      <div style="width: 24px; height: 24px; background: linear-gradient(135deg, #fbbf24, #f97316);',
-    '                  border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 8px;">',
-    '        <span style="font-size: 12px; font-weight: bold; color: black;">KC</span>',
-    '      </div>',
-    '      <span style="font-size: 18px; font-weight: bold; color: #f97316;" id="coins-amount">200</span>',
-    '      <span style="margin-left: 8px; color: #ccc;">Konura Coins</span>',
-    '    </div>',
-    '  </div>',
-    '  <div style="margin-bottom: 20px;">',
-    '    <label style="display: block; margin-bottom: 12px; font-weight: bold; color: #f97316;">Способ оплаты:</label>',
-    '    <div style="display: grid; gap: 10px;">',
-    '      <label style="display: flex; align-items: center; padding: 12px; border: 2px solid #555;',
-    '                    border-radius: 8px; cursor: pointer; transition: all 0.3s;"',
-    '             onmouseover="this.style.borderColor=\'#f97316\'"',
-    '             onmouseout="this.style.borderColor=\'#555\'">',
-    '        <input type="radio" name="payment" value="card" checked',
-    '               style="margin-right: 12px; accent-color: #f97316;">',
-    '        <div>',
-    '          <div style="font-weight: bold;">💳 Банковская карта</div>',
-    '          <div style="font-size: 12px; color: #ccc;">Visa, MasterCard, МИР</div>',
-    '        </div>',
-    '      </label>',
-    '      <label style="display: flex; align-items: center; padding: 12px; border: 2px solid #555;',
-    '                    border-radius: 8px; cursor: pointer; transition: all 0.3s;"',
-    '             onmouseover="this.style.borderColor=\'#f97316\'"',
-    '             onmouseout="this.style.borderColor=\'#555\'">',
-    '        <input type="radio" name="payment" value="spb"',
-    '               style="margin-right: 12px; accent-color: #f97316;">',
-    '        <div>',
-    '          <div style="font-weight: bold;">🏦 СПБ (Система быстрых платежей)</div>',
-    '          <div style="font-size: 12px; color: #ccc;">Оплата по номеру телефона</div>',
-    '        </div>',
-    '      </label>',
-    '    </div>',
-    '  </div>',
-    '  <div style="font-size: 12px; color: #ccc; text-align: center; margin-top: 15px;">',
-    '    Курс: 1₽ = 2 KC<br>',
-    '    Комиссия отсутствует',
-    '  </div>',
-    '</div>',
-    '<script>',
-    '  function updateCoins() {',
-    '    const amount = document.getElementById("amount").value || 0;',
-    '    const coins = amount * 2;',
-    '    document.getElementById("coins-amount").textContent = coins.toLocaleString();',
-    '  }',
-    
-  ].join('\n')
-
   const { value: formValues } = await Swal.fire({
     title: '💰 Пополнение баланса',
-    html: topUpHTML,
+    html: `
+      <div style="text-align: left;">
+        <div style="margin-bottom: 20px;">
+          <label style="display: block; margin-bottom: 8px; font-weight: bold; color: #f97316;">Сумма к оплате (₽):</label>
+          <input id="amount" type="number" min="1" max="50000" value="100" 
+                 style="width: 100%; padding: 12px; border: 2px solid #f97316; border-radius: 8px; 
+                        background: rgba(0,0,0,0.3); color: white; font-size: 16px;" 
+                 placeholder="Введите сумму в рублях">
+        </div>
+        
+        <div style="margin-bottom: 20px; padding: 15px; background: rgba(249, 115, 22, 0.1); 
+                    border: 1px solid #f97316; border-radius: 8px;">
+          <div style="display: flex; align-items: center; justify-content: center;">
+            <div style="width: 24px; height: 24px; border: 2px solid #f97316; 
+                        border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 8px;">
+              <img src="https://api.iconify.design/streamline:bone-solid.svg?color=%23ff7331" alt="Coin" class="w-4 h-4" />
+            </div>
+            <span style="font-size: 18px; font-weight: bold; color: #f97316;" id="coins-amount">200</span>
+            <span style="margin-left: 8px; color: #ccc;">Konura Coins</span>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+          <label style="display: block; margin-bottom: 12px; font-weight: bold; color: #f97316;">Способ оплаты:</label>
+          <div style="display: grid; gap: 10px;">
+            <label style="display: flex; align-items: center; padding: 12px; border: 2px solid #555; 
+                          border-radius: 8px; cursor: pointer; transition: all 0.3s;" 
+                   onmouseover="this.style.borderColor='#f97316'" 
+                   onmouseout="this.style.borderColor='#555'">
+              <input type="radio" name="payment" value="card" checked 
+                     style="margin-right: 12px; accent-color: #f97316;">
+              <div>
+                <div style="font-weight: bold;">💳 Банковская карта</div>
+                <div style="font-size: 12px; color: #ccc;">Visa, MasterCard, МИР</div>
+              </div>
+            </label>
+            
+            <label style="display: flex; align-items: center; padding: 12px; border: 2px solid #555; 
+                          border-radius: 8px; cursor: pointer; transition: all 0.3s;" 
+                   onmouseover="this.style.borderColor='#f97316'" 
+                   onmouseout="this.style.borderColor='#555'">
+              <input type="radio" name="payment" value="spb" 
+                     style="margin-right: 12px; accent-color: #f97316;">
+              <div>
+                <div style="font-weight: bold;">🏦 СПБ (Система быстрых платежей)</div>
+                <div style="font-size: 12px; color: #ccc;">Оплата по номеру телефона</div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div style="font-size: 12px; color: #ccc; text-align: center; margin-top: 15px;">
+          Курс: 1₽ = 2 KC<br>
+          Комиссия отсутствует
+        </div>
+      </div>
+    `,
+    didOpen: () => {
+      // Добавляем обработчик события для обновления монет
+      const amountInput = document.getElementById('amount')
+      const coinsDisplay = document.getElementById('coins-amount')
+      
+      const updateCoins = () => {
+        const amount = parseInt(amountInput.value) || 0
+        const coins = amount * 2
+        coinsDisplay.textContent = coins.toLocaleString()
+      }
+      
+      amountInput.addEventListener('input', updateCoins)
+      // Обновляем при открытии
+      updateCoins()
+    },
     focusConfirm: false,
     showCancelButton: true,
     confirmButtonText: 'Перейти к оплате',
@@ -382,29 +416,35 @@ async function showTopUpMenu() {
 }
 
 async function processPayment(paymentData) {
-  // Показываем подтверждение
-  const confirmHTML = [
-    '<div style="text-align: center; padding: 20px;">',
-    '  <div style="font-size: 24px; margin-bottom: 20px;">💰</div>',
-    '  <div style="margin-bottom: 15px;">',
-    `    <strong>Сумма:</strong> ${paymentData.amount.toLocaleString()}₽`,
-    '  </div>',
-    '  <div style="margin-bottom: 15px;">',
-    '    <strong>Получите:</strong>',
-    `    <span style="color: #f97316; font-weight: bold;">${paymentData.coins.toLocaleString()} KC</span>`,
-    '  </div>',
-    '  <div style="margin-bottom: 20px;">',
-    `    <strong>Способ оплаты:</strong> ${paymentData.paymentMethod === 'card' ? '💳 Карта' : '🏦 СПБ'}`,
-    '  </div>',
-    '  <div style="font-size: 14px; color: #ccc;">',
-    '    После оплаты монеты будут зачислены автоматически',
-    '  </div>',
-    '</div>'
-  ].join('\n')
-
   const result = await Swal.fire({
     title: 'Подтверждение платежа',
-    html: confirmHTML,
+    html: `
+      <div style="text-align: center; padding: 20px;">
+  <div style="font-size: 24px; margin-bottom: 20px;">💰</div>
+  
+  <div style="margin-bottom: 15px;">
+    <strong>Сумма:</strong> ${paymentData.amount.toLocaleString()}₽
+  </div>
+  
+  <div style="margin-bottom: 15px;">
+    <strong>Получите:</strong>
+    <div style="color: #f97316; font-weight: bold; display: inline-flex; align-items: center; gap: 5px;">
+      ${paymentData.coins.toLocaleString()} 
+      <img src="https://api.iconify.design/streamline:bone-solid.svg?color=%23ff7331" 
+           alt="Coin" style="width: 16px; height: 16px;" />
+    </div>
+  </div>
+  
+  <div style="margin-bottom: 20px;">
+    <strong>Способ оплаты:</strong> ${paymentData.paymentMethod === 'card' ? '💳 Карта' : '🏦 СПБ'}
+  </div>
+  
+  <div style="font-size: 14px; color: #ccc;">
+    После оплаты монеты будут зачислены автоматически
+  </div>
+</div>
+
+    `,
     showCancelButton: true,
     confirmButtonText: 'Оплатить',
     cancelButtonText: 'Отмена',
@@ -437,21 +477,20 @@ async function processPayment(paymentData) {
       // Обновляем баланс пользователя
       userCoins.value += paymentData.coins;
       
-      const successHTML = [
-        '<div style="text-align: center;">',
-        '  <div style="font-size: 20px; margin: 15px 0;">',
-        `    Ваш баланс пополнен на <span style="color: #f97316; font-weight: bold;">${paymentData.coins.toLocaleString()} KC</span>`,
-        '  </div>',
-        '  <div style="font-size: 16px; color: #ccc;">',
-        `    Текущий баланс: <span style="color: #f97316;">${userCoins.value.toLocaleString()} KC</span>`,
-        '  </div>',
-        '</div>'
-      ].join('\n')
-      
       Swal.fire({
         icon: 'success',
         title: 'Платеж успешен!',
-        html: successHTML,
+        html: `
+          <div style="text-align: center;">
+            <div style="font-size: 20px; margin: 15px 0;">
+              Ваш баланс пополнен на <div style="color: #f97316; font-weight: bold; display: inline-flex; align-items: center; gap: 5px;">${paymentData.coins.toLocaleString()} <img src="https://api.iconify.design/streamline:bone-solid.svg?color=%23ff7331" alt="Coin" class="w-4 h-4" />
+                </div>
+            </div>
+            <div style="color: #fff; font-weight: bold; display: inline-flex; align-items: center; gap: 5px;">
+              Текущий баланс: <span style="color: #f97316;">${userCoins.value.toLocaleString()} </span><img src="https://api.iconify.design/streamline:bone-solid.svg?color=%23ff7331" alt="Coin" class="w-4 h-4" />
+            </div>
+          </div>
+        `,
         confirmButtonText: 'Отлично!',
         confirmButtonColor: '#f97316',
         background: 'rgba(15,15,15,0.95)',

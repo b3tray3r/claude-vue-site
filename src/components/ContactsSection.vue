@@ -17,18 +17,17 @@
               <div class="absolute left-0 top-0 w-1 h-full bg-primary transform scale-y-0 
               group-hover:scale-y-100 transition-transform duration-300 origin-top"></div>
 
-              <img :src="feature.image" alt="feature icon" class="w-16 h-16 mb-4 rounded-lg object-contain shadow-md" />
+              <img :src="feature.image" alt="feature icon" class="w-16 h-16 mb-4 rounded-lg object-contain shadow-md " />
 
               <h3 class="text-xl font-semibold text-primary mb-3">{{ feature.title }}</h3>
               <p class="text-gray-300 leading-relaxed">{{ feature.description }}</p>
             </div>
-
           </div>
         </div>
 
-        <div class="hidden lg:block animate-fade-up z-10 py-14 opacity-60">
+        <div class="animate-fade-up z-10 py-14 ">
           <img src="https://i.imgur.com/6cjevNJ.png" alt="Контактная информация"
-            class="w-[450px] h-auto rounded-2xl shadow-xl object-cover" />
+            class="w-[450px] h-auto rounded-2xl shadow-xl object-cover opacity-50" />
         </div>
 
       </div>
@@ -93,5 +92,22 @@ onMounted(() => {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+@keyframes fade-up-blur {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+    filter: opacity(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: opacity(60);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up-blur 0.6s ease forwards;
 }
 </style>

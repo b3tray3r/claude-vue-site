@@ -22,7 +22,7 @@ export const products = {
       description: 'Быстрый доступ на сервер в час пик',
       rarity: 'common',
       popular: false,
-      image: './src/assets/lvl1.png'
+      image: '/src/assets/lvl1.png'
     },
     {
       id: 'premium-1',
@@ -33,7 +33,7 @@ export const products = {
       description: 'Быстрый доступ на сервер в час пик',
       rarity: 'rare',
       popular: true,
-      image: '../src/assets/lvl2.png'
+      image: '/src/assets/lvl2.png'
     },
     {
       id: 'ultimate-1',
@@ -44,7 +44,7 @@ export const products = {
       description: 'Быстрый доступ на сервер в час пик',
       rarity: 'legendary',
       popular: false,
-      image: './assets/lvl3.png'
+      image: '/src/assets/lvl3.png'
     }
   ],
   comps: [
@@ -55,7 +55,7 @@ export const products = {
     quantity: "1 шт",
     rarity: "common",
     popular: true,
-    image: "../assets/comps/cctv.camera.png"
+    image: "/src/assets/comps/cctv.camera.png"
   },
   {
     id: "gears",
@@ -64,7 +64,7 @@ export const products = {
     quantity: "1 шт",
     rarity: "common",
     popular: true,
-    image: "assets/comps/gears.png"
+    image: "/src/assets/comps/gears.png"
   },
   {
     id: "metal-blade",
@@ -73,7 +73,7 @@ export const products = {
     quantity: "1 шт",
     rarity: "common",
     popular: true,
-    image: "src/assets/comps/metalblade.png"
+    image: "/src/assets/comps/metalblade.png"
   },
   {
     id: "metal-pipe",
@@ -82,7 +82,7 @@ export const products = {
     quantity: "1 шт",
     rarity: "common",
     popular: true,
-  image: "src/assets/comps/metalpipe.png"
+  image: "/src/assets/comps/metalpipe.png"
   },
   {
     id: "metal-spring",
@@ -91,7 +91,7 @@ export const products = {
     quantity: "1 шт",
     rarity: "common",
     popular: true,
-    image: "src/assets/comps/metalspring.png"
+    image: "/src/assets/comps/metalspring.png"
   },
   {
     id: "propane-tank",
@@ -100,7 +100,7 @@ export const products = {
     quantity: "1 шт",
     rarity: "common",
     popular: true,
-    image: "src/assets/comps/propanetank.png"
+    image: "/src/assets/comps/propanetank.png"
   },
   {
     id: "rifle-body",
@@ -109,7 +109,7 @@ export const products = {
     quantity: "1 шт",
     rarity: "common",
     popular: true,
-    image: "src/assets/comps/riflebody.png"
+    image: "/src/assets/comps/riflebody.png"
   },
   {
     id: "road-signs",
@@ -118,7 +118,7 @@ export const products = {
     quantity: "1 шт",
     rarity: "common",
     popular: true,
-    image: "src/assets/comps/roadsigns.png"
+    image: "/src/assets/comps/roadsigns.png"
   },
   {
     id: "rope",
@@ -127,7 +127,7 @@ export const products = {
     quantity: "1 шт",
     rarity: "common",
     popular: true,
-    image: "src/assets/comps/rope.png"
+    image: "/src/assets/comps/rope.png"
   },
   {
     id: "semi-body",
@@ -136,7 +136,7 @@ export const products = {
     quantity: "1 шт",
     rarity: "common",
     popular: true,
-    image: "src/assets/comps/semibody.png"
+    image: "/src/assets/comps/semibody.png"
   },
   {
     id: "sewing-kit",
@@ -145,7 +145,7 @@ export const products = {
     quantity: "1 шт",
     rarity: "common",
     popular: true,
-    image: "src/assets/comps/sewingkit.png"
+    image: "/src/assets/comps/sewingkit.png"
   },
   {
     id: "sheet-metal",
@@ -154,7 +154,7 @@ export const products = {
     quantity: "1 шт",
     rarity: "common",
     popular: true,
-    image: "src/assets/comps/sheetmetal.png"
+    image: "/src/assets/comps/sheetmetal.png"
   },
   {
     id: "smg-body",
@@ -163,7 +163,7 @@ export const products = {
     quantity: "1 шт",
     rarity: "common",
     popular: true,
-    image: "src/assets/comps/smgbody.png"
+    image: "/src/assets/comps/smgbody.png"
   },
   {
     id: "targeting-computer",
@@ -172,7 +172,7 @@ export const products = {
     quantity: "1 шт",
     rarity: "common",
     popular: true,
-    image: "src/assets/comps/targeting.computer.png"
+    image: "/src/assets/comps/targeting.computer.png"
   },
   {
     id: "tarp",
@@ -181,7 +181,7 @@ export const products = {
     quantity: "1 шт",
     rarity: "common",
     popular: true,
-    image: "src/assets/comps/tarp.png"
+    image: "/src/assets/comps/tarp.png"
   },
   {
     id: "tech-parts",
@@ -190,7 +190,7 @@ export const products = {
     quantity: "1 шт",
     rarity: "common",
     popular: true,
-    image: "src/assets/comps/techparts.png"
+    image: "/src/assets/comps/techparts.png"
   }
   ],
   weapons: [
@@ -203,7 +203,7 @@ export const products = {
 
       rarity: 'common',
       popular: true,
-      image: 'src/assets/weapons/pistol.m92.png'
+      image: '/src/assets/weapons/pistol.m92.png'
     },
     {
       id: 'double',
@@ -214,7 +214,7 @@ export const products = {
 
       rarity: 'legendary',
       popular: true,
-      image: 'src/assets/weapons/shotgun.double.png'
+      image: '/src/assets/weapons/shotgun.double.png'
     },
     {
       id: 'semiauto',
@@ -225,7 +225,7 @@ export const products = {
 
       rarity: 'rare',
       popular: true,
-      image: 'src/assets/weapons/pistol.semiauto.png'
+      image: '/src/assets/weapons/pistol.semiauto.png'
     },
     {
       id: 'bolt',
@@ -236,7 +236,7 @@ export const products = {
 
       rarity: 'legendary',
       popular: true,
-      image: 'src/assets/weapons/rifle.bolt.png'
+      image: '/src/assets/weapons/rifle.bolt.png'
     },
     {
       id: 'gr.launcher',
@@ -247,7 +247,7 @@ export const products = {
 
       rarity: 'legendary',
       popular: true,
-      image: 'src/assets/weapons/multiplegrenadelauncher.png'
+      image: '/src/assets/weapons/multiplegrenadelauncher.png'
     },
     {
       id: 'flame',
@@ -258,7 +258,7 @@ export const products = {
 
       rarity: 'legendary',
       popular: true,
-      image: 'src/assets/weapons/flamethrower.png'
+      image: '/src/assets/weapons/flamethrower.png'
     },
     {
       id: 'rocket',
@@ -269,7 +269,7 @@ export const products = {
 
       rarity: 'legendary',
       popular: true,
-      image: 'src/assets/weapons/rocket.launcher.png'
+      image: '/src/assets/weapons/rocket.launcher.png'
     },
     {
       id: 'ak47-1',
@@ -280,7 +280,7 @@ export const products = {
 
       rarity: 'legendary',
       popular: true,
-      image: 'src/assets/weapons/rifle.ak.png'
+      image: '/src/assets/weapons/rifle.ak.png'
     },
     {
       id: 'lr300-1',
@@ -290,7 +290,7 @@ export const products = {
       quantity: '1 шт',
             rarity: 'legendary',
       popular: false,
-      image: 'src/assets/weapons/rifle.lr300.png'
+      image: '/src/assets/weapons/rifle.lr300.png'
     },
     {
       id: 'thompson-1',
@@ -300,7 +300,7 @@ export const products = {
       quantity: '1 шт',
       rarity: 'rare',
       popular: true,
-      image: 'src/assets/weapons/smg.thompson.png'
+      image: '/src/assets/weapons/smg.thompson.png'
     },
     {
       id: 'mp5-1',
@@ -310,7 +310,7 @@ export const products = {
       quantity: '1 шт',
       rarity: 'rare',
       popular: false,
-      image: 'src/assets/weapons/smg.mp5.png'
+      image: '/src/assets/weapons/smg.mp5.png'
     },
     {
       id: 'shotgun-1',
@@ -321,7 +321,7 @@ export const products = {
       rarity: 'common',
       popular: false,
 
-      image: 'src/assets/weapons/shotgun.spas12.png'
+      image: '/src/assets/weapons/shotgun.spas12.png'
     }
   ],
   ammo: [
@@ -334,7 +334,7 @@ export const products = {
 
       rarity: 'rare',
       popular: true,
-      image: 'src/assets/ammo/ammo.grenadelauncher.he.png'
+      image: '/src/assets/ammo/ammo.grenadelauncher.he.png'
     },
 
     {
@@ -344,7 +344,7 @@ export const products = {
       quantity: '1 шт',
       rarity: 'rare',
       popular: true,
-      image: 'src/assets/ammo/ammo.pistol.fire.png'
+      image: '/src/assets/ammo/ammo.pistol.fire.png'
     },
     {
       id: 'ammo.pistol.hv',
@@ -353,7 +353,7 @@ export const products = {
       quantity: '1 шт',
       rarity: 'rare',
       popular: true,
-      image: 'src/assets/ammo/ammo.pistol.hv.png'
+      image: '/src/assets/ammo/ammo.pistol.hv.png'
     },
     {
       id: 'ammo.pistol',
@@ -362,7 +362,7 @@ export const products = {
       quantity: '1 шт',
       rarity: 'rare',
       popular: true,
-      image: 'src/assets/ammo/ammo.pistol.png'
+      image: '/src/assets/ammo/ammo.pistol.png'
     },
     {
       id: 'ammo.rifle.explosive',
@@ -371,7 +371,7 @@ export const products = {
       quantity: '1 шт',
       rarity: 'rare',
       popular: true,
-      image: 'src/assets/ammo/ammo.rifle.explosive.png'
+      image: '/src/assets/ammo/ammo.rifle.explosive.png'
     },
     {
       id: 'ammo.rifle.hv',
@@ -380,7 +380,7 @@ export const products = {
       quantity: '1 шт',
       rarity: 'rare',
       popular: true,
-      image: 'src/assets/ammo/ammo.rifle.hv.png'
+      image: '/src/assets/ammo/ammo.rifle.hv.png'
     },
     {
       id: 'ammo.rifle.incendiary',
@@ -389,7 +389,7 @@ export const products = {
       quantity: '1 шт',
       rarity: 'rare',
       popular: true,
-      image: 'src/assets/ammo/ammo.rifle.incendiary.png'
+      image: '/src/assets/ammo/ammo.rifle.incendiary.png'
     },
      {
       id: 'ammo.rifle',
@@ -398,7 +398,7 @@ export const products = {
       quantity: '1 шт',
       rarity: 'rare',
       popular: true,
-      image: 'src/assets/ammo/ammo.rifle.png'
+      image: '/src/assets/ammo/ammo.rifle.png'
     },
     {
       id: 'ammo.shotgun.fire',
@@ -407,7 +407,7 @@ export const products = {
       quantity: '1 шт',
       rarity: 'rare',
       popular: true,
-      image: 'src/assets/ammo/ammo.shotgun.fire.png'
+      image: '/src/assets/ammo/ammo.shotgun.fire.png'
     },
     {
       id: 'ammo.shotgun',
@@ -416,7 +416,7 @@ export const products = {
       quantity: '1 шт',
       rarity: 'rare',
       popular: true,
-      image: 'src/assets/ammo/ammo.shotgun.png'
+      image: '/src/assets/ammo/ammo.shotgun.png'
     },
     {
       id: 'ammo.shotgun.slug',
@@ -425,7 +425,7 @@ export const products = {
       quantity: '1 шт',
       rarity: 'rare',
       popular: true,
-      image: 'src/assets/ammo/ammo.shotgun.slug.png'
+      image: '/src/assets/ammo/ammo.shotgun.slug.png'
     },
     
   ],
@@ -438,7 +438,7 @@ export const products = {
       quantity: '1000 шт',
       rarity: 'rare',
       popular: true,
-      image: 'src/assets/resourses/sulfur.png'
+      image: '/src/assets/resourses/sulfur.png'
     },
     {
       id: 'charcoal',
@@ -448,7 +448,7 @@ export const products = {
       quantity: '1000 шт',
       rarity: 'common',
       popular: true,
-      image: 'src/assets/resourses/charcoal.png'
+      image: '/src/assets/resourses/charcoal.png'
     },
     {
       id: 'crude.oil',
@@ -458,17 +458,17 @@ export const products = {
       quantity: '1000 шт',
       rarity: 'common',
       popular: true,
-      image: 'src/assets/resourses/crude.oil.png'
+      image: '/src/assets/resourses/crude.oil.png'
     },
     {
       id: 'explosives',
-      name: 'Взрывчатые вещества',
+      name: 'Взрывчатое вещество',
       icon: '',
       price: 50,
       quantity: '1000 шт',
       rarity: 'common',
       popular: true,
-      image: 'src/assets/resourses/explosives.png'
+      image: '/src/assets/resourses/explosives.png'
     },
     {
       id: 'gunpowder',
@@ -478,7 +478,7 @@ export const products = {
       quantity: '1000 шт',
       rarity: 'common',
       popular: true,
-      image: 'src/assets/resourses/gunpowder.png'
+      image: '/src/assets/resourses/gunpowder.png'
     },
     {
       id: 'lowgradefuel',
@@ -488,7 +488,7 @@ export const products = {
       quantity: '1000 шт',
       rarity: 'common',
       popular: true,
-      image: 'src/assets/resourses/lowgradefuel.png'
+      image: '/src/assets/resourses/lowgradefuel.png'
     },
 
      {
@@ -499,7 +499,7 @@ export const products = {
       quantity: '1000 шт',
       rarity: 'common',
       popular: true,
-      image: 'src/assets/resourses/metal.ore.png'
+      image: '/src/assets/resourses/metal.ore.png'
     },
     {
       id: 'metal-fragments-1',
@@ -509,7 +509,7 @@ export const products = {
       quantity: '1000 шт',
       rarity: 'common',
       popular: true,
-      image: 'src/assets/resourses/metal.fragments.png'
+      image: '/src/assets/resourses/metal.fragments.png'
     },
     {
       id: 'hqm-1',
@@ -519,7 +519,7 @@ export const products = {
       quantity: '100 шт',
       rarity: 'legendary',
       popular: true,
-      image: 'src/assets/resourses/hq.metal.ore.png'
+      image: '/src/assets/resourses/hq.metal.ore.png'
     },
     {
       id: 'hqm',
@@ -529,7 +529,7 @@ export const products = {
       quantity: '100 шт',
       rarity: 'legendary',
       popular: true,
-      image: 'src/assets/resourses/metal.refined.png'
+      image: '/src/assets/resourses/metal.refined.png'
     },
     {
       id: 'stone-1',
@@ -539,7 +539,7 @@ export const products = {
       quantity: '2000 шт',
       rarity: 'common',
       popular: false,
-      image: 'src/assets/resourses/stones.png'
+      image: '/src/assets/resourses/stones.png'
     },
     {
       id: 'wood-1',
@@ -549,7 +549,7 @@ export const products = {
       quantity: '2000 шт',
       rarity: 'common',
       popular: false,
-      image: 'src/assets/resourses/wood.png'
+      image: '/src/assets/resourses/wood.png'
     },
     {
       id: 'cloth',
@@ -559,7 +559,7 @@ export const products = {
       quantity: '2000 шт',
       rarity: 'common',
       popular: false,
-      image: 'src/assets/resourses/cloth.png'
+      image: '/src/assets/resourses/cloth.png'
     },
     {
       id: 'leather',
@@ -569,7 +569,7 @@ export const products = {
       quantity: '2000 шт',
       rarity: 'common',
       popular: false,
-      image: 'src/assets/resourses/leather.png'
+      image: '/src/assets/resourses/leather.png'
     }
   ],
   meds: [
@@ -581,7 +581,7 @@ export const products = {
       quantity: '10 шт',
       rarity: 'common',
       popular: true,
-      image: 'src/assets/meds/bandage.png'
+      image: '/src/assets/meds/bandage.png'
     },{
       id: 'syringe',
       name: 'Шприц',
@@ -590,7 +590,7 @@ export const products = {
       quantity: '5 шт',
       rarity: 'rare',
       popular: true,
-      image: 'src/assets/meds/syringe.medical.png'
+      image: '/src/assets/meds/syringe.medical.png'
     },{
       id: 'medkit',
       name: 'Аптечка',
@@ -599,7 +599,7 @@ export const products = {
       quantity: '1 шт',
       rarity: 'legendary',
       popular: true,
-      image: 'src/assets/meds/largemedkit.png'
+      image: '/src/assets/meds/largemedkit.png'
     },
   ],
   explosives: [
@@ -611,7 +611,7 @@ export const products = {
       quantity: '1 шт',
       rarity: 'legendary',
       popular: true,
-      image: 'src/assets/explosives/explosive.timed.png'
+      image: '/src/assets/explosives/explosive.timed.png'
     },
     {
       id: 'rocket-1',
@@ -621,7 +621,7 @@ export const products = {
       quantity: '1 шт',
       rarity: 'rare',
       popular: true,
-      image: 'src/assets/explosives/ammo.rocket.basic.png'
+      image: '/rc/assets/explosives/ammo.rocket.basic.png'
     },
     {
       id: 'hv-rocket-1',
@@ -631,7 +631,7 @@ export const products = {
       quantity: '1 шт',
       rarity: 'rare',
       popular: false,
-      image: 'src/assets/explosives/ammo.rocket.hv.png'
+      image: '/src/assets/explosives/ammo.rocket.hv.png'
     },
     {
       id: 'satchel-1',
@@ -641,7 +641,7 @@ export const products = {
       quantity: '1 шт',
       rarity: 'common',
       popular: false,
-      image: 'src/assets/explosives/explosive.satchel.png'
+      image: '/src/assets/explosives/explosive.satchel.png'
     },
     {
       id: 'mine',
@@ -651,7 +651,7 @@ export const products = {
       quantity: '1 шт',
       rarity: 'rare',
       popular: true,
-      image: 'src/assets/explosives/trap.landmine.png'
+      image: '/src/assets/explosives/trap.landmine.png'
     },
     {
       id: 'grenade-1',
@@ -661,7 +661,7 @@ export const products = {
       quantity: '3 шт',
       rarity: 'common',
       popular: true,
-      image: 'src/assets/explosives/grenade.f1.png'
+      image: '/src/assets/explosives/grenade.f1.png'
     }
   ]
 }

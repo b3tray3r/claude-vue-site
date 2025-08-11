@@ -3,15 +3,15 @@
     class="fixed top-0 w-full z-50 glass border-b border-white/10 transition-all duration-300"
     :style="{ backgroundColor: `rgba(0, 0, 0, ${navOpacity})` }"
   >
-    <div class="max-w-6xl mx-auto  py-4">
-      <div @click="handleNavClick(link, $event)" class="flex items-center justify-between">
-        <!-- Logo -->
+    <div class="max-w-6xl mx-auto py-4">
+      <div class="flex items-center justify-between">
+        <!-- Лого -->
         <router-link to="/" @click.prevent="handleLogoClick" class="flex items-center hover:opacity-80 transition-all">
-  <img src="/src/assets/logo.png" alt="KONURA RUST Logo" class="w-12 h-12 mr-4" />
-  <span class="text-2xl font-black text-primary text-shadow">KONURA</span>
-</router-link>
+          <img src="/src/assets/logo.png" alt="KONURA RUST Logo" class="w-12 h-12 mr-4" />
+          <span class="text-2xl font-black text-primary text-shadow">KONURA</span>
+        </router-link>
 
-        <!-- Desktop Navigation -->
+        <!-- Десктопное меню -->
         <div class="hidden md:flex items-center space-x-8">
           <component
             v-for="link in navLinks"
@@ -30,17 +30,19 @@
           </component>
         </div>
 
-        <!-- User Info & Actions -->
+        <!-- Блок пользователя -->
         <div class="flex items-center space-x-4">
-          <div v-if="testSteamUser || steamUser" class="flex items-center space-x-3">
+          <!-- Если авторизован -->
+          <div v-if="isAuthenticated && steamUser" class="flex items-center space-x-3">
+            <!-- Аватар -->
             <img
-              v-if="(testSteamUser && testSteamUser.avatar) || (steamUser && steamUser.avatar)"
-              :src="(testSteamUser && testSteamUser.avatar) || (steamUser && steamUser.avatar)"
-              :alt="(testSteamUser && testSteamUser.name) || (steamUser && steamUser.name)"
+              v-if="steamUser.avatar"
+              :src="steamUser.avatar"
+              :alt="steamUser.name"
               class="w-12 h-12 rounded-full border-2 border-primary animate-pulse-glow"
             />
-            
-            <!-- Coin Balance -->
+
+            <!-- Баланс -->
             <div class="flex items-center bg-black/30 backdrop-blur-sm border border-orange-500/30 rounded-lg px-3 py-2">
               <div class="flex items-center space-x-2 mr-3">
                 <div class="w-6 h-6 border-2 border-orange-500 rounded-full flex items-center justify-center">
@@ -58,12 +60,14 @@
             </div>
           </div>
 
+          <!-- Кнопка подключения -->
           <a href="steam://connect/203.16.163.232:28834" class="btn-primary flex items-center space-x-2" @click="showServerInfo">
             <span>Подключиться</span>
           </a>
 
+          <!-- Кнопки авторизации -->
           <button
-            v-if="!testIsAuthenticated && !isAuthenticated"
+            v-if="!isAuthenticated"
             @click="login"
             class="btn-steam flex items-center space-x-2"
           >
@@ -75,17 +79,16 @@
             <span>Steam Login</span>
           </button>
 
-          <button v-else-if="testIsAuthenticated" @click="testLogout" class="btn-primary flex items-center space-x-2">
+          <button
+            v-else
+            @click="logout"
+            class="btn-primary flex items-center space-x-2"
+          >
             <img src="https://api.iconify.design/cuida:logout-outline.svg?color=%23ffffff" alt="Logout" class="w-5 h-5" />
             <span>Выйти</span>
           </button>
 
-          <button v-else @click="logout" class="btn-primary flex items-center space-x-2">
-            <img src="https://api.iconify.design/cuida:logout-outline.svg?color=%23ffffff" alt="Logout" class="w-5 h-5" />
-            <span>Выйти</span>
-          </button>
-
-          <!-- Mobile Menu Toggle -->
+          <!-- Кнопка бургера -->
           <button @click="toggleMobileMenu" class="md:hidden flex flex-col space-y-1 p-2">
             <span
               class="w-6 h-0.5 bg-white transition-all duration-300"
@@ -103,14 +106,14 @@
         </div>
       </div>
 
-      <!-- Mobile Navigation -->
+      <!-- Мобильное меню -->
       <div v-if="mobileMenuOpen" class="md:hidden mt-4 pt-4 border-t border-white/10">
         <div class="flex flex-col space-y-4">
-          <!-- Mobile Coin Balance -->
-          <div v-if="testSteamUser || steamUser" class="flex items-center justify-between bg-black/30 backdrop-blur-sm border border-orange-500/30 rounded-lg px-3 py-2">
+          <!-- Баланс в мобильном меню -->
+          <div v-if="isAuthenticated && steamUser" class="flex items-center justify-between bg-black/30 backdrop-blur-sm border border-orange-500/30 rounded-lg px-3 py-2">
             <div class="flex items-center space-x-2">
               <div class="w-6 h-6 border-orange-500 border-2 rounded-full flex items-center justify-center">
-               <img src="https://api.iconify.design/streamline:bone-solid.svg?color=%23ff7331" alt="Coin" class="w-4 h-4" />
+                <img src="https://api.iconify.design/streamline:bone-solid.svg?color=%23ff7331" alt="Coin" class="w-4 h-4" />
               </div>
               <span class="text-white font-semibold">{{ userCoins.toLocaleString() }}</span>
             </div>
@@ -122,6 +125,7 @@
             </button>
           </div>
 
+          <!-- Ссылки -->
           <component
             v-for="link in navLinks"
             :key="link.name"
@@ -140,6 +144,7 @@
   </nav>
   <div class="h-16"></div>
 </template>
+
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'

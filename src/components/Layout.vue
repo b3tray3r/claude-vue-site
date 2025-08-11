@@ -11,7 +11,7 @@
     <Footer />
 
     <!-- Видеофон должен быть **последним в DOM** и с fixed позиционированием -->
-    <VideoBackground />
+    
   </div>
 </template>
 

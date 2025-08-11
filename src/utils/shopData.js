@@ -22,7 +22,7 @@ export const products = {
       description: 'Быстрый доступ на сервер в час пик',
       rarity: 'common',
       popular: false,
-      image: '/src/assets/lvl1.png'
+      image: '/assets/lvl1.png'
     },
     {
       id: 'premium-1',
@@ -33,7 +33,7 @@ export const products = {
       description: 'Быстрый доступ на сервер в час пик',
       rarity: 'rare',
       popular: true,
-      image: '/src/assets/lvl2.png'
+      image: '/assets/lvl2.png'
     },
     {
       id: 'ultimate-1',
@@ -44,7 +44,7 @@ export const products = {
       description: 'Быстрый доступ на сервер в час пик',
       rarity: 'legendary',
       popular: false,
-      image: '/src/assets/lvl3.png'
+      image: '/assets/lvl3.png'
     }
   ],
   comps: [
@@ -55,7 +55,7 @@ export const products = {
     quantity: "1 шт",
     rarity: "common",
     popular: true,
-    image: "/src/assets/comps/cctv.camera.png"
+    image: "/assets/comps/cctv.camera.png"
   },
   {
     id: "gears",
@@ -64,7 +64,7 @@ export const products = {
     quantity: "1 шт",
     rarity: "common",
     popular: true,
-    image: "/src/assets/comps/gears.png"
+    image: "/assets/comps/gears.png"
   },
   {
     id: "metal-blade",
@@ -73,7 +73,7 @@ export const products = {
     quantity: "1 шт",
     rarity: "common",
     popular: true,
-    image: "/src/assets/comps/metalblade.png"
+    image: "/assets/comps/metalblade.png"
   },
   {
     id: "metal-pipe",
@@ -91,7 +91,7 @@ export const products = {
     quantity: "1 шт",
     rarity: "common",
     popular: true,
-    image: "/src/assets/comps/metalspring.png"
+    image: "/assets/comps/metalspring.png"
   },
   {
     id: "propane-tank",
@@ -100,7 +100,7 @@ export const products = {
     quantity: "1 шт",
     rarity: "common",
     popular: true,
-    image: "/src/assets/comps/propanetank.png"
+    image: "/assets/comps/propanetank.png"
   },
   {
     id: "rifle-body",
@@ -468,7 +468,7 @@ export const products = {
       quantity: '1000 шт',
       rarity: 'common',
       popular: true,
-      image: '/src/assets/resourses/explosives.png'
+      image: '/assets/resourses/explosives.png'
     },
     {
       id: 'gunpowder',
@@ -478,7 +478,7 @@ export const products = {
       quantity: '1000 шт',
       rarity: 'common',
       popular: true,
-      image: '/src/assets/resourses/gunpowder.png'
+      image: '/assets/resourses/gunpowder.png'
     },
     {
       id: 'lowgradefuel',

@@ -143,37 +143,87 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
-import { useSteam } from '../composables/useSteam'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
+
 const route = useRoute()
+const router = useRouter()
 
-const { user: steamUser, isAuthenticated, login, logout } = useSteam()
+// Данные пользователя Steam
+const steamUser = ref(null)
+const isAuthenticated = ref(false)
+const userCoins = ref(0) // баланс пользователя
 
+// Интерфейс
 const navOpacity = ref(0.6)
 const mobileMenuOpen = ref(false)
-const userCoins = ref(0) // Пример баланса пользователя
 
-// Тестовые данные для Steam пользователя
-const testSteamUser = ref(null)
-const testIsAuthenticated = ref(false)
+const navLinks = [
+  { name: 'Главная', href: '/', internal: true },
+  { name: 'Магазин', href: '/shop', internal: true },
+  { name: 'Статистика', href: '/stats', internal: true },
+  { name: 'Контакты', href: '/contacts', internal: true },
+]
 
-// Функция тестового логина
-const testLogin = () => {
-  testIsAuthenticated.value = true
-  testSteamUser.value = {
-    id: '76561198123456789',
-    name: 'TestPlayer2024',
-    avatar: 'https://avatars.steamstatic.com/a6e23d6de8e27e3c6c3b21f4e3c1e5d3f6a3b4c5_full.jpg'
+// 🔹 Логин через Steam по новой логике
+function login() {
+  window.location.href = 'https://api.konurarust.com/steam/login' // твой API
+}
+
+// 🔹 Логаут
+async function logout() {
+  const token = localStorage.getItem('authToken')
+  if (token) {
+    await fetch('https://api.konurarust.com/auth/logout', {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${token}` }
+    }).catch(() => {})
+  }
+  localStorage.removeItem('authToken')
+  steamUser.value = null
+  isAuthenticated.value = false
+  userCoins.value = 0
+}
+
+// 🔹 Получение данных пользователя и баланса
+async function fetchUser() {
+  const token = localStorage.getItem('authToken')
+  if (!token) return
+
+  const res = await fetch('https://api.konurarust.com/auth/me', {
+    headers: { 'Authorization': `Bearer ${token}` }
+  })
+  if (res.ok) {
+    const data = await res.json()
+    steamUser.value = data.user
+    isAuthenticated.value = true
+
+    // Баланс
+    const balRes = await fetch(`https://api.konurarust.com/rcon/balance/${data.steamId}`, {
+      headers: { 'Authorization': `Bearer ${token}` }
+    })
+    if (balRes.ok) {
+      const bal = await balRes.json()
+      userCoins.value = bal.balance
+    }
   }
 }
 
-const testLogout = () => {
-  testIsAuthenticated.value = false
-  testSteamUser.value = null
+// Анимация прозрачности навигации
+function handleScroll() {
+  navOpacity.value = Math.min(0.6 + (window.scrollY / 100) * 0.3, 0.9)
 }
 
-const getLinkClasses = (href) => {
+// Мобильное меню
+function toggleMobileMenu() {
+  mobileMenuOpen.value = !mobileMenuOpen.value
+}
+function closeMobileMenu() {
+  mobileMenuOpen.value = false
+}
+
+// Классы для активных ссылок
+function getLinkClasses(href) {
   const isActive = route.path === href
   return [
     'nav-link',
@@ -188,119 +238,7 @@ const getLinkClasses = (href) => {
   ]
 }
 
-const navLinks = [
-  { name: 'Главная', href: '/', internal: true },
-  { name: 'Магазин', href: '/shop', internal: true },
-  { name: 'Статистика', href: '/stats', internal: true },
-  { name: 'Контакты', href: '/contacts', internal: true },
-]
-
-const scrollToSection = (href, event) => {
-  if (href.startsWith('#')) {
-    event.preventDefault()
-    const element = document.querySelector(href)
-    if (element) {
-      const offsetTop = element.offsetTop - 80
-      window.scrollTo({
-        top: offsetTop,
-        behavior: 'smooth',
-      })
-    }
-  }
-}
-
-const toggleMobileMenu = () => {
-  mobileMenuOpen.value = !mobileMenuOpen.value
-}
-
-const closeMobileMenu = () => {
-  mobileMenuOpen.value = false
-}
-
-const handleScroll = () => {
-  const scrollY = window.scrollY
-  navOpacity.value = Math.min(0.6 + (scrollY / 100) * 0.3, 0.9)
-}
-
-const handleLogoClick = () => {
-  if (route.path === '/') {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  } else {
-    router.push('/').then(() => {
-      setTimeout(() => {
-        window.scrollTo({ top: 0, behavior: 'smooth' })
-      }, 150)
-    })
-  }
-}
-
-onMounted(() => {
-  window.addEventListener('scroll', handleScroll, { passive: true })
-
-  // Закрыть мобильное меню при клике вне навигации
-  document.addEventListener('click', (e) => {
-    if (!e.target.closest('nav')) {
-      closeMobileMenu()
-    }
-  })
-})
-
-onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll)
-})
-
-const handleNavClick = (link, event) => {
-  // Если это якорь (#about и т.п.)
-  if (!link.internal && link.href.startsWith('#')) {
-    scrollToSection(link.href, event)
-    return
-  }
-
-  // Если кликают по той же странице — просто прокрутка наверх
-  if (route.path === link.href) {
-    event.preventDefault()
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
-
-  // Если переход на другую внутреннюю страницу — дожидаемся роутинга и скроллим наверх
-  if (link.internal) {
-    setTimeout(() => {
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-    }, 150)
-  }
-
-  closeMobileMenu()
-}
-
-function showServerInfo() {
-  Swal.fire({
-    title: '🎮 Подключение к серверу',
-    html: `
-      <div style="text-align: left; font-size: 16px;">
-        <p><strong>IP: </strong> 80.242.59.103:35016</p>
-        <p><strong>Игроков онлайн: </strong> 70/400</p>
-        <p><strong>Карта: </strong> Barren, размер 4500</p>
-        <p><strong>Wipe: </strong> каждый четверг в 15:00</p>
-        <p><strong>Особенности:</strong> PvP, кланы, ивенты, магазины</p>
-      </div>
-    `,
-    confirmButtonText: 'Подключиться',
-    cancelButtonText: 'Отмена',
-    showCancelButton: true,
-    background: 'rgba(15,15,15,0.9)',
-    color: '#fff',
-    confirmButtonColor: '#f97316',
-    cancelButtonColor: '#555',
-    scrollbarPadding: false,
-    customClass: {
-      popup: 'backdrop-blur-md border border-orange-500 rounded-xl shadow-lg'
-    },
-    preConfirm: () => {
-      window.location.href = 'steam://run/252490//+connect 203.16.163.232:28834'
-    }
-  })
-}
-
+// 🔹 Пополнение баланса (SweetAlert, твой код без изменений)
 async function showTopUpMenu() {
   const { value: formValues } = await Swal.fire({
     title: '💰 Пополнение баланса',
@@ -362,18 +300,13 @@ async function showTopUpMenu() {
       </div>
     `,
     didOpen: () => {
-      // Добавляем обработчик события для обновления монет
       const amountInput = document.getElementById('amount')
       const coinsDisplay = document.getElementById('coins-amount')
-      
       const updateCoins = () => {
         const amount = parseInt(amountInput.value) || 0
-        const coins = amount * 2
-        coinsDisplay.textContent = coins.toLocaleString()
+        coinsDisplay.textContent = (amount * 2).toLocaleString()
       }
-      
       amountInput.addEventListener('input', updateCoins)
-      // Обновляем при открытии
       updateCoins()
     },
     focusConfirm: false,
@@ -391,27 +324,20 @@ async function showTopUpMenu() {
     preConfirm: () => {
       const amount = document.getElementById('amount').value;
       const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
-      
       if (!amount || amount < 1) {
         Swal.showValidationMessage('Введите корректную сумму');
         return false;
       }
-      
       if (amount > 50000) {
         Swal.showValidationMessage('Максимальная сумма: 50,000₽');
         return false;
       }
-      
-      return {
-        amount: parseInt(amount),
-        paymentMethod: paymentMethod,
-        coins: parseInt(amount) * 2
-      };
+      return { amount: parseInt(amount), paymentMethod, coins: parseInt(amount) * 2 }
     }
-  });
+  })
 
   if (formValues) {
-    await processPayment(formValues);
+    await processPayment(formValues)
   }
 }
 
@@ -420,30 +346,20 @@ async function processPayment(paymentData) {
     title: 'Подтверждение платежа',
     html: `
       <div style="text-align: center; padding: 20px;">
-  <div style="font-size: 24px; margin-bottom: 20px;">💰</div>
-  
-  <div style="margin-bottom: 15px;">
-    <strong>Сумма:</strong> ${paymentData.amount.toLocaleString()}₽
-  </div>
-  
-  <div style="margin-bottom: 15px;">
-    <strong>Получите:</strong>
-    <div style="color: #f97316; font-weight: bold; display: inline-flex; align-items: center; gap: 5px;">
-      ${paymentData.coins.toLocaleString()} 
-      <img src="https://api.iconify.design/streamline:bone-solid.svg?color=%23ff7331" 
-           alt="Coin" style="width: 16px; height: 16px;" />
-    </div>
-  </div>
-  
-  <div style="margin-bottom: 20px;">
-    <strong>Способ оплаты:</strong> ${paymentData.paymentMethod === 'card' ? '💳 Карта' : '🏦 СПБ'}
-  </div>
-  
-  <div style="font-size: 14px; color: #ccc;">
-    После оплаты монеты будут зачислены автоматически
-  </div>
-</div>
-
+        <div style="font-size: 24px; margin-bottom: 20px;">💰</div>
+        <div style="margin-bottom: 15px;"><strong>Сумма:</strong> ${paymentData.amount.toLocaleString()}₽</div>
+        <div style="margin-bottom: 15px;">
+          <strong>Получите:</strong>
+          <div style="color: #f97316; font-weight: bold; display: inline-flex; align-items: center; gap: 5px;">
+            ${paymentData.coins.toLocaleString()} 
+            <img src="https://api.iconify.design/streamline:bone-solid.svg?color=%23ff7331" style="width: 16px; height: 16px;" />
+          </div>
+        </div>
+        <div style="margin-bottom: 20px;">
+          <strong>Способ оплаты:</strong> ${paymentData.paymentMethod === 'card' ? '💳 Карта' : '🏦 СПБ'}
+        </div>
+        <div style="font-size: 14px; color: #ccc;">После оплаты монеты будут зачислены автоматически</div>
+      </div>
     `,
     showCancelButton: true,
     confirmButtonText: 'Оплатить',
@@ -455,39 +371,31 @@ async function processPayment(paymentData) {
     customClass: {
       popup: 'backdrop-blur-md border border-orange-500 rounded-xl shadow-2xl'
     }
-  });
+  })
 
   if (result.isConfirmed) {
-    // Здесь будет интеграция с платежной системой
-    
-    // Имитация процесса оплаты
     Swal.fire({
       title: 'Обработка платежа...',
       html: 'Пожалуйста, подождите',
       allowOutsideClick: false,
-      didOpen: () => {
-        Swal.showLoading();
-      },
+      didOpen: () => Swal.showLoading(),
       background: 'rgba(15,15,15,0.95)',
       color: '#fff'
-    });
+    })
 
-    // Имитация успешной оплаты через 2 секунды
     setTimeout(() => {
-      // Обновляем баланс пользователя
-      userCoins.value += paymentData.coins;
-      
+      userCoins.value += paymentData.coins
       Swal.fire({
         icon: 'success',
         title: 'Платеж успешен!',
         html: `
           <div style="text-align: center;">
             <div style="font-size: 20px; margin: 15px 0;">
-              Ваш баланс пополнен на <div style="color: #f97316; font-weight: bold; display: inline-flex; align-items: center; gap: 5px;">${paymentData.coins.toLocaleString()} <img src="https://api.iconify.design/streamline:bone-solid.svg?color=%23ff7331" alt="Coin" class="w-4 h-4" />
-                </div>
+              Ваш баланс пополнен на <div style="color: #f97316; font-weight: bold; display: inline-flex; align-items: center; gap: 5px;">${paymentData.coins.toLocaleString()} <img src="https://api.iconify.design/streamline:bone-solid.svg?color=%23ff7331" class="w-4 h-4" />
+              </div>
             </div>
             <div style="color: #fff; font-weight: bold; display: inline-flex; align-items: center; gap: 5px;">
-              Текущий баланс: <span style="color: #f97316;">${userCoins.value.toLocaleString()} </span><img src="https://api.iconify.design/streamline:bone-solid.svg?color=%23ff7331" alt="Coin" class="w-4 h-4" />
+              Текущий баланс: <span style="color: #f97316;">${userCoins.value.toLocaleString()} </span><img src="https://api.iconify.design/streamline:bone-solid.svg?color=%23ff7331" class="w-4 h-4" />
             </div>
           </div>
         `,
@@ -498,9 +406,26 @@ async function processPayment(paymentData) {
         customClass: {
           popup: 'backdrop-blur-md border border-green-500 rounded-xl shadow-2xl'
         }
-      });
-    }, 2000);
+      })
+    }, 2000)
   }
 }
 
+// 📌 Хуки жизненного цикла
+onMounted(() => {
+  if (route.query.token) {
+    localStorage.setItem('authToken', route.query.token)
+    router.replace({ query: {} })
+  }
+  fetchUser()
+
+  window.addEventListener('scroll', handleScroll, { passive: true })
+  document.addEventListener('click', e => {
+    if (!e.target.closest('nav')) closeMobileMenu()
+  })
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
+})
 </script>

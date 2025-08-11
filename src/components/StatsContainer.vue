@@ -187,7 +187,14 @@ const formatNumber = (num) => {
 
 async function fetchRustServerInfo() {
   try {
-    const res = await fetch('https://ktor-server-u2py.onrender.com/rcon/server-info')
+    const res = await fetch('https://ktor-server-u2py.onrender.com/rcon/server-info-and-save', {
+      method: 'POST', // только POST-запрос
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({}) // если нужно отправить данные — укажи здесь
+    })
+
     const data = await res.json()
 
     players.value = data.players ?? 0
@@ -201,6 +208,7 @@ async function fetchRustServerInfo() {
     status.value = 'offline'
   }
 }
+
 
 async function getTopKills() {
   try {

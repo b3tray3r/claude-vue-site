@@ -59,7 +59,7 @@
           </thead>
           <tbody>
             <tr v-for="(player, index) in sortedAndFilteredPlayers" :key="player.steamId"
-              class="border-b border-gray-600 hover:bg-gray-600 transition-colors duration-200 text-white">
+                class="border-b border-gray-600 hover:bg-gray-600 transition-colors duration-200 text-white">
               
               <td class="text-center py-2">
                 <span v-if="index === 0">1</span>
@@ -69,7 +69,7 @@
               </td>
 
               <td class="px-3 py-2 font-medium">
-                {{ player.currentName|| 'Без имени' }}
+                <span v-html="highlightMatch(player.currentName || 'Без имени')"></span>
               </td>
 
               <td class="text-center py-2 text-violet-400">{{ player.kills || 0 }}</td>
@@ -128,7 +128,7 @@ async function fetchPlayers() {
 const filteredPlayers = computed(() => {
   if (!searchQuery.value) return players.value || []
   return players.value.filter((player) =>
-    (player.names?.at(-1) || '').toLowerCase().includes(searchQuery.value.toLowerCase())
+    (player.currentName || '').toLowerCase().includes(searchQuery.value.toLowerCase())
   )
 })
 
@@ -138,8 +138,8 @@ const sortedAndFilteredPlayers = computed(() => {
 
     switch (sortKey.value) {
       case 'name':
-        aVal = (a.names?.at(-1) || '').toLowerCase()
-        bVal = (b.names?.at(-1) || '').toLowerCase()
+        aVal = (a.currentName || '').toLowerCase()
+        bVal = (b.currentName || '').toLowerCase()
         break
       case 'kills': aVal = a.kills || 0; bVal = b.kills || 0; break
       case 'deaths': aVal = a.deaths || 0; bVal = b.deaths || 0; break
@@ -181,6 +181,13 @@ function calculateKDA(kills, deaths) {
 function calculateAccuracy(shots, headshots) {
   if (!shots) return '0.00'
   return ((headshots || 0) / shots * 100).toFixed(2)
+}
+
+// Подсветка совпадений
+function highlightMatch(text) {
+  if (!searchQuery.value) return text
+  const regex = new RegExp(`(${searchQuery.value})`, 'gi')
+  return text.replace(regex, '<span class="bg-yellow-300 text-black">$1</span>')
 }
 </script>
 

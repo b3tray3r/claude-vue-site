@@ -20,7 +20,7 @@
     </div>
 
     <div v-else class="w-full overflow-x-auto">
-      <div class="bg-gradient-to-r from-gray-800 to-gray-700 rounded-lg shadow-xl overflow-hidden min-w-[1200px]">
+      <div class="bg-gradient-to-r from-gray-800 to-gray-700 rounded-lg shadow-xl overflow-hidden min-w-[1300px]">
         <table class="w-full text-base">
           <thead>
             <tr class="bg-gradient-to-r from-gray-900 to-gray-800 text-white">
@@ -39,6 +39,9 @@
               </th>
               <th class="px-3 py-4 text-center cursor-pointer hover:bg-gray-700" @click="sortBy('shots')">
                 Выстрелы <span class="text-xs">{{ getSortIcon('shots') }}</span>
+              </th>
+              <th class="px-3 py-4 text-center cursor-pointer hover:bg-gray-700" @click="sortBy('headshots')">
+                Хэдшоты <span class="text-xs">{{ getSortIcon('headshots') }}</span>
               </th>
               <th class="px-3 py-4 text-center cursor-pointer hover:bg-gray-700" @click="sortBy('accuracy')">
                 Точность <span class="text-xs">{{ getSortIcon('accuracy') }}</span>
@@ -76,6 +79,7 @@
               <td class="text-center py-2 text-red-400">{{ player.deaths || 0 }}</td>
               <td class="text-center py-2 text-emerald-400">{{ calculateKDA(player.kills, player.deaths) }}</td>
               <td class="text-center py-2 text-amber-400">{{ player.shots || 0 }}</td>
+              <td class="text-center py-2 text-indigo-400">{{ player.headshots || 0 }}</td>
               <td class="text-center py-2 text-slate-300">{{ calculateAccuracy(player.shots, player.headshots) }}%</td>
               <td class="text-center py-2 text-orange-300">{{ (player.gathered?.['metal.ore'] || 0).toLocaleString() }}</td>
               <td class="text-center py-2 text-gray-300">{{ (player.gathered?.['stones'] || 0).toLocaleString() }}</td>
@@ -84,7 +88,7 @@
             </tr>
 
             <tr v-if="sortedAndFilteredPlayers.length === 0">
-              <td colspan="11" class="text-center text-gray-400 py-6">Игроки не найдены.</td>
+              <td colspan="12" class="text-center text-gray-400 py-6">Игроки не найдены.</td>
             </tr>
           </tbody>
         </table>
@@ -145,6 +149,7 @@ const sortedAndFilteredPlayers = computed(() => {
       case 'deaths': aVal = a.deaths || 0; bVal = b.deaths || 0; break
       case 'kda': aVal = parseFloat(calculateKDA(a.kills, a.deaths)); bVal = parseFloat(calculateKDA(b.kills, b.deaths)); break
       case 'shots': aVal = a.shots || 0; bVal = b.shots || 0; break
+      case 'headshots': aVal = a.headshots || 0; bVal = b.headshots || 0; break
       case 'accuracy': aVal = parseFloat(calculateAccuracy(a.shots, a.headshots)); bVal = parseFloat(calculateAccuracy(b.shots, b.headshots)); break
       case 'metal': aVal = a.gathered?.['metal.ore'] || 0; bVal = b.gathered?.['metal.ore'] || 0; break
       case 'stone': aVal = a.gathered?.['stones'] || 0; bVal = b.gathered?.['stones'] || 0; break

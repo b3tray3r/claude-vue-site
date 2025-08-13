@@ -69,7 +69,7 @@
               </td>
 
               <td class="px-3 py-2 font-medium">
-                {{ player.names?.at(-1) || 'Без имени' }}
+                {{ player.currentName|| 'Без имени' }}
               </td>
 
               <td class="text-center py-2 text-violet-400">{{ player.kills || 0 }}</td>
